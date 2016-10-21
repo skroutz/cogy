@@ -1,12 +1,14 @@
 module Cogy
   class Handler
-    def initialize(handler, args: [])
-      @handler = handler
-      @args = args
+    attr_accessor :command
+
+    def initialize(blk)
+      @blk = blk
+      @command = nil
     end
 
-    def run(env)
-      @handler.run("foo")
+    def run(args, opts, user)
+      @blk.call(args, command.opts.merge(opts), user)
     end
   end
 end
