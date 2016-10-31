@@ -5,7 +5,7 @@ require "cogy/command"
 module Cogy
   COG_BUNDLE_VERSION = 4
 
-	# Holds all the registered Commands
+  # Holds all the registered Commands. Not to be messed with.
   mattr_accessor :commands
   @@commands = {}
 
@@ -16,13 +16,20 @@ module Cogy
   mattr_accessor :bundle_description
   @@bundle_description = "Cogy-generated commands"
 
+  # Can be either a string or an object that responds to `#call` and returns
+  # a string.
+  #
   # Must be set explicitly
   mattr_accessor :bundle_version
   @@bundle_version = nil
 
+  # The path in the Cog Relay where the command executable is located.
+  #
+  # Must be set explicitly.
   mattr_accessor :executable_path
   @@executable_path = nil
 
+  # Paths where the files that define the commands will be searched in
   mattr_accessor :command_load_paths
   @@command_load_paths = ["cogy"]
 
