@@ -20,10 +20,11 @@ module Cogy
   mattr_accessor :bundle_version
   @@bundle_version = nil
 
-  # A string representing the path to the command executable
-  # TODO: raise if it isn't set
   mattr_accessor :executable_path
   @@executable_path = nil
+
+  mattr_accessor :command_load_paths
+  @@command_load_paths = ["cogy"]
 
   def self.on(cmd_name, opts = {}, &blk)
     cmd = Command.new(cmd_name, opts)
