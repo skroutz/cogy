@@ -35,9 +35,9 @@ module Cogy
     # Suitable for bundle config display.
     #
     # Get rid of HashWithIndifferentAccess, otherwise the resulting YAML
-    # will contain garbage. Also the :default key is not relevant to Cog.
+    # will contain garbage.
     def formatted_opts
-      opts.to_hash.transform_values { |v| v.except("default") }
+      opts.to_hash
     end
   end
 end
