@@ -9,7 +9,7 @@ module Cogy
 
       Cogy.command_load_paths.each do |path|
         files = Dir[Rails.root.join(path,"*.rb")]
-        files.each { |f| require_relative(f) }
+        files.each { |f| Cogy.module_eval(File.read(f)) }
       end
     end
   end
