@@ -56,14 +56,17 @@ module Cogy
     }
 
     commands.each do |name, cmd|
-      # also add options
       config["commands"][name] = {
         "executable" => executable_path,
         "description" => cmd.desc,
         "arguments" => cmd.formatted_args,
-        #"options" => cmd.options, TODO
+        "options" => cmd.formatted_opts,
         "rules" => cmd.rules
       }
+
+      if cmd.long_desc
+        config["commands"][name]["long_description"] = cmd.long_desc
+      end
 
       if cmd.example
         config["commands"][name]["example"] = cmd.example
