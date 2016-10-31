@@ -5,9 +5,9 @@ module Cogy
     # GET /cmd/:cmd/:user
     def command
       cmd = params[:cmd]
-      args = request.query_parameters.select { |k,_| k !~ /\Acog_opt_/ }.keys
+      args = request.query_parameters.select { |k,_| k !~ /\Acog_opt_/ }.values
       opts = request.query_parameters.select { |k,_| k =~ /\Acog_opt_/ }
-      opts = {}.tap { |h| opts.each { |k,v| h[k.sub("cog_opt_","")] = v } }
+        .transform_keys { |k| k.sub("cog_opt_", "") }
       user = params[:user]
 
       render text: Cogy.commands[cmd].run!(args, opts, user)
