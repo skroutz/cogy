@@ -39,12 +39,19 @@ module Cogy
     cmd.register!(handler)
   end
 
+  # @return [Hash]
   def self.bundle_config
+    version = if bundle_version.respond_to?(:call)
+      bundle_version.call
+    else
+      bundle_version
+    end
+
     config = {
       "cog_bundle_version" => COG_BUNDLE_VERSION,
       "name" => bundle_name,
       "description" => bundle_description,
-      "version" => bundle_version,
+      "version" => version,
       "commands" => {}
     }
 
