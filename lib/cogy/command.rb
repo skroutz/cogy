@@ -27,8 +27,17 @@ module Cogy
       handler.run(*args)
     end
 
+    # Suitable for bundle config display
     def formatted_args
       args.map { |a| "<#{a}>" }.join(" ")
+    end
+
+    # Suitable for bundle config display.
+    #
+    # Get rid of HashWithIndifferentAccess, otherwise the resulting YAML
+    # will contain garbage. Also the :default key is not relevant to Cog.
+    def formatted_opts
+      opts.to_hash.transform_values { |v| v.except("default") }
     end
   end
 end
