@@ -3,6 +3,10 @@ module Cogy
     isolate_namespace Cogy
 
     config.after_initialize do
+      if Cogy.bundle_version.nil?
+        raise "You must set the :bundle_version setting"
+      end
+
       if Cogy.executable_path.nil?
         raise "You must set the :executable_path setting"
       end
