@@ -8,7 +8,6 @@ module Cogy
     end
 
     def run(args, opts, user)
-      opts = opts.reverse_merge(command.opts.transform_values { |v| v["default"] })
       @blk.call(args, opts, user)
     end
   end
