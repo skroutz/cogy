@@ -93,7 +93,7 @@ Cogy.configure do |config|
   # directory relative to the root of your application.
   #
   # Default: ["cogy"]
-  config.command_load_paths = "cogy_commands/"
+  config.command_load_paths = "cogy"
 end
 
 ```
