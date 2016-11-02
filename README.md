@@ -141,9 +141,13 @@ is the following:
 However it can be overriden in the application by creating a view in
 `app/views/cogy/error.text.erb`.
 
-## Credits
+## Authors
 
-TODO
+* [Agis Anastasopoulos](https://github.com/agis-)
+
+## License
+
+Cogy is licensed under MIT. See [LICENSE](LICENSE).
 
 
 
