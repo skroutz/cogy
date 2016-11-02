@@ -1,7 +1,7 @@
 # Cogy
 
-Cogy provides a way to integrate [Cog](https://operable.io/) with Rails apps,
-in a way that managing and adding commands is a breeze.
+Cogy integrates [Cog](https://operable.io/) with Rails
+in a way that managing commands becomes a breeze.
 
 ## Why
 
