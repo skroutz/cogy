@@ -3,6 +3,16 @@
 Cogy integrates [Cog](https://operable.io/) with Rails
 in a way that managing commands becomes a breeze.
 
+## Status
+
+*DISCLAIMER*: While we use Cogy in production, it's still in public alpha and
+is under heavy development.
+
+This means that a few critical bits are missing (the Relay executable and
+RSpec helpers to name a few) and the API is not stable yet.
+
+However, feel free to test it and gives us your feedback!
+
 ## Why
 
 Creating a Cog command that talks with a Rails app typically involves writing
@@ -154,7 +164,4 @@ However it can be overriden in the application by creating a view in
 ## License
 
 Cogy is licensed under MIT. See [LICENSE](LICENSE).
-
-
-
 
