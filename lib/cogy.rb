@@ -59,10 +59,16 @@ module Cogy
       config["commands"][name] = {
         "executable" => executable_path,
         "description" => cmd.desc,
-        "arguments" => cmd.formatted_args,
-        "options" => cmd.formatted_opts,
         "rules" => cmd.rules
       }
+
+      if !cmd.args.empty?
+        config["commands"][name]["arguments"] = cmd.formatted_args
+      end
+
+      if !cmd.opts.empty?
+        config["commands"][name]["options"] = cmd.formatted_opts
+      end
 
       if cmd.long_desc
         config["commands"][name]["long_description"] = cmd.long_desc
