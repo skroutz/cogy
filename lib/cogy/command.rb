@@ -1,14 +1,14 @@
 module Cogy
   class Command
-    attr :name, :args, :opts, :desc, :long_desc, :example, :rules, :handler
+    attr :name, :args, :opts, :desc, :long_desc, :examples, :rules, :handler
 
-    def initialize(name, args: [], opts: {}, desc:, long_desc: nil, example: nil, rules: nil)
+    def initialize(name, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil)
       @name = name
       @args = [args].flatten.map!(&:to_s)
       @opts = opts.with_indifferent_access
       @desc = desc
       @long_desc = long_desc
-      @example = example
+      @examples = examples
       @rules = rules || ["allow"]
     end
 

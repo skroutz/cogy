@@ -136,7 +136,7 @@ on "calc",
   args: [:a, :b],
   opts: { op: { type: "string", required: true, short_flag: "o" } },
   desc: "Performs a calculation between numbers <a> and <b>",
-  example: "!myapp:calc sum 1 2" do |req_args, req_opts, user|
+  examples: "!myapp:calc sum 1 2" do |req_args, req_opts, user|
   op = req_opts[:op].to_sym
   result = req_args.map(&:to_i).inject(&op)
   "Hello @#{user}, the result is: #{result}"
@@ -160,6 +160,7 @@ However it can be overriden in the application by creating a view in
 ## Authors
 
 * [Agis Anastasopoulos](https://github.com/agis-)
+* [Mpampis Kostas](https://github.com/charkost)
 
 ## License
 
