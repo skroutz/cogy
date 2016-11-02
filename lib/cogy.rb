@@ -74,8 +74,8 @@ module Cogy
         config["commands"][name]["long_description"] = cmd.long_desc
       end
 
-      if cmd.example
-        config["commands"][name]["example"] = cmd.example
+      if cmd.examples
+        config["commands"][name]["examples"] = cmd.examples
       end
     end
 
