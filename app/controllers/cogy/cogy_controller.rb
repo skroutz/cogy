@@ -2,7 +2,7 @@ require_dependency "cogy/application_controller"
 
 module Cogy
   class CogyController < ApplicationController
-    # GET /cmd/:cmd/:user
+    # GET <mount_path>/cmd/:cmd/:user
     def command
       cmd = params[:cmd]
       args = request.query_parameters.select { |k,_| k !~ /\Acog_opt_/ }.values
@@ -10,7 +10,14 @@ module Cogy
         .transform_keys { |k| k.sub("cog_opt_", "") }
       user = params[:user]
 
-      render text: Cogy.commands[cmd].run!(args, opts, user)
+      begin
+        render text: Cogy.commands[cmd].run!(args, opts, user)
+      rescue => e
+        @user = user
+        @cmd = cmd
+        @exception = e
+        render "cogy/error"
+      end
     end
 
     # GET /inventory

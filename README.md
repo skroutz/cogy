@@ -127,6 +127,20 @@ on "calc",
 end
 ```
 
+## Error template
+
+When a command throws an error, the default error template is rendered, which
+is the following:
+
+    @<%= @user %>: Command '<%= @cmd %>' returned an error.
+
+    ```
+    <%= @exception.class %>:<%= @exception.message %>
+    ```
+
+However it can be overriden by creating a view in
+`app/views/cogy/error.text.erb`.
+
 ## Credits
 
 TODO
