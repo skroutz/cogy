@@ -1,36 +1,42 @@
 # Cogy
 
-Cogy provides a way to integrate Cog with Rails apps, in a way that managing
-and adding commands is a breeze.
+Cogy provides a way to integrate [Cog](https://operable.io/) with Rails apps,
+in a way that managing and adding commands is a breeze.
 
 ## Why
 
-Creating a command that talks with a Rails app, typically involves writing
+Creating a Cog command that talks with a Rails app typically involves writing
 a route, maybe a controller, an action and code to handle the command arguments
 and options.
 
-This is a repetitive task and Cogy provides a way to get rid of this tedious
-boilerplate code.
+This is a tedious and repetitive task and involves writing a lot of boilerplate
+code each time someone wants to add a new command.
 
-With Cogy, writing a new command is as simple as adding the following line
+Cogy is an opinionated library that provides a way to get rid of all the
+repetitive work and makes writing commands a breeze!
+
+Making a new command available for use is as simple as adding the following line
 to a file in your application:
 
 ```ruby
 # in cogy/my_commands.rb
 
-on "foo", desc: "Echo a foo bar back at you!" do |req_args, _, user|
+on "foo", desc: "Echo a foo bar back at you!" do |_args, _opts, user|
   "@#{user}: foo bar"
 end
 ```
+
+...and deploying!
 
 ## How it works
 
 Cogy is essentially three things:
 
-1. An opinionated way to build commands: All Cogy commands are defined in your
-   Rails app and end up in a single executable within the Relay (see below).
-   Cogy provides versioning and dynamically generates the bundle config, which
-   is also served by your Rails app. This, accompanied with the command [TODO: INSERT LINK HERE] that
+1. An opinionated way to write, manage & ship commands: All Cogy commands are
+   defined in your Rails app and end up invoking a single executable within the
+   Relay (see below). Cogy provides versioning and dynamically generates the
+   bundle config, which is also served by your Rails app (via a Rails Engine).
+   This, accompanied with the command [TODO: INSERT LINK HERE] that
    can install bundles from other bundles, makes it possible to automatically
    install the newly-written commands by invoking a trigger when you deploy
    your app.
