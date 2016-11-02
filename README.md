@@ -138,7 +138,7 @@ is the following:
     <%= @exception.class %>:<%= @exception.message %>
     ```
 
-However it can be overriden by creating a view in
+However it can be overriden in the application by creating a view in
 `app/views/cogy/error.text.erb`.
 
 ## Credits
