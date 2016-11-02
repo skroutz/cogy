@@ -10,8 +10,8 @@ module Cogy
   @@commands = {}
 
   # Bundle config-related stuff
-	mattr_accessor :bundle_name
-	@@bundle_name = "cogy"
+  mattr_accessor :bundle_name
+  @@bundle_name = "cogy"
 
   mattr_accessor :bundle_description
   @@bundle_description = "Cogy-generated commands"
