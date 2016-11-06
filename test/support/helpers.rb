@@ -1,7 +1,7 @@
 require 'active_support/test_case'
 
 class ActiveSupport::TestCase
-  def fetch_config
+  def fetch_inventory
     get "/cogy/inventory"
     YAML.load(response.body)
   end
@@ -14,10 +14,17 @@ class ActiveSupport::TestCase
       Cogy.send("#{k}=", v)
     end
 
-    yield fetch_config
+    yield fetch_inventory
 
     old.each do |k, v|
       Cogy.send("#{k}=", v)
     end
+  end
+
+  def without_commands
+    old = Cogy.commands
+    Cogy.commands = {}
+    yield
+    Cogy.commands = old
   end
 end

@@ -52,8 +52,9 @@ module Cogy
       "name" => bundle_name,
       "description" => bundle_description,
       "version" => version,
-      "commands" => {}
     }
+
+    config["commands"] = {} if commands.present?
 
     commands.each do |name, cmd|
       config["commands"][name] = {

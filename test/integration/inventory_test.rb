@@ -18,7 +18,7 @@ module Cogy
     end
 
     def test_cog_bundle_version
-      assert_equal 4, fetch_config["cog_bundle_version"]
+      assert_equal 4, fetch_inventory["cog_bundle_version"]
     end
 
     def test_bundle_version_lambda
@@ -38,6 +38,12 @@ module Cogy
         }
 
         assert_equal expected, inv["commands"]
+      end
+    end
+
+    def test_without_commands
+      without_commands do
+        refute_includes fetch_inventory.keys, "commands"
       end
     end
   end
