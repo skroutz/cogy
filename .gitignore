@@ -1,4 +1,5 @@
 .bundle/
+.yardoc/
 *.gem
 doc/
 log/*.log
