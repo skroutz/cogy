@@ -22,7 +22,7 @@ module Cogy
 
     # GET /inventory
     def inventory
-      render text: Cogy.bundle_config.to_yaml
+      render text: Cogy.bundle_config.to_yaml, content_type: "application/x-yaml"
     end
   end
 end

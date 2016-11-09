@@ -46,6 +46,11 @@ module Cogy
         refute_includes fetch_inventory.keys, "commands"
       end
     end
+
+    def test_content_type
+      get "/cogy/inventory"
+      assert_equal "application/x-yaml", response.content_type
+    end
   end
 end
 
