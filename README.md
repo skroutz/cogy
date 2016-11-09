@@ -1,7 +1,7 @@
 # Cogy
 
 Cogy integrates [Cog](https://operable.io/) with Rails
-in a way that managing commands becomes a breeze.
+in a way that writing & deploying commands from your application is a breeze.
 
 ## Status
 
@@ -11,7 +11,7 @@ is under heavy development.
 This means that a few critical bits are missing (the Relay executable and
 RSpec helpers to name a few) and the API is not stable yet.
 
-However, feel free to test it and gives us your feedback!
+However we'd love any feedback, suggestions or ideas.
 
 ## Why
 
@@ -43,21 +43,28 @@ end
 Cogy is essentially three things:
 
 1. An opinionated way to write, manage & ship commands: All Cogy commands are
-   defined in your Rails app and end up invoking a single executable within the
-   Relay (see below). Cogy provides versioning and dynamically generates the
-   bundle config, which is also served by your Rails app (via a Rails Engine).
-   This, accompanied with the command [TODO: INSERT LINK HERE] that
-   can install bundles from other bundles, makes it possible to automatically
-   install the newly-written commands by invoking a trigger when you deploy
-   your app.
+   defined in your Rails app and end up invoking a [single executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) within the
+   Relay. The Cogy library (ie. this gem) then provides versioning and
+   dynamically generates the bundle config, which is also served by your Rails
+   app via a Rails Engine.
+   This, accompanied with the [`cogy:install`](https://github.com/skroutz/cogy-bundle)
+   command that can automatically install the Cogy-generated bundle, makes it
+   possible to automatically install the newly-written commands via a trigger which is
+   hooked in your deployment procedure.
 2. A Rails Engine that is mounted in your application and routes the incoming
    requests to their user-defined handlers. It also creates the `/inventory`
    endpoint, which serves the installable bundle configuration in YAML and can be
-   consumed directly by the `cogutils:install` command [TODO: INSERT LINK].
-3. An executable [TODO: INSERT LINK HERE] which all commands point to.
+   consumed directly by the [`cogy:install`](https://github.com/skroutz/cogy-bundle) command.
+3. An [executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) which all commands point to.
    This is placed inside the Relays and performs the requests to your application
    when a user invokes a command in the chat. It then posts the result back
    to the user.
+
+## Requirements
+
+* [cogy bundle](https://github.com/skroutz/cogy-bundle)
+* Ruby 2.1+
+* Tested with Rails 4.2
 
 ## Installation
 
