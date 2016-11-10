@@ -16,6 +16,11 @@ module Cogy
       assert_equal "text/plain", response.content_type.to_s
     end
 
+    def test_error_response_code
+      get "/cogy/cmd/raiser/george"
+      assert_equal 500, response.status
+    end
+
     def test_calc_command
       get "/cogy/cmd/calc/george", cog_opt_op: "+", cog_argv_0: 1, cog_argv_1: 2
       assert_equal "Hello george, the answer is: 3", response.body

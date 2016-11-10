@@ -17,7 +17,9 @@ module Cogy
         @cmd = cmd
         @exception = e
         respond_to do |format|
-          format.any { render "/cogy/error.text.erb", content_type: "text/plain" }
+          format.any do
+            render "/cogy/error.text.erb", content_type: "text/plain", status: 500
+          end
         end
       end
     end
