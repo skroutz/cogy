@@ -27,17 +27,15 @@ module Cogy
       end
     end
 
-    def test_commands
+    def test_commands_section
       with_config(executable_path: "/bin/no") do |inv|
         expected = {
-          "say_foo" => {
-            "executable" => "/bin/no",
-            "description" => "Print a foo",
-            "rules" => ["allow"]
-          }
+          "executable" => "/bin/no",
+          "description" => "Print a foo",
+          "rules" => ["allow"]
         }
 
-        assert_equal expected, inv["commands"]
+        assert_equal expected, inv["commands"]["say_foo"]
       end
     end
 
