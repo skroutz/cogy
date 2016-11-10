@@ -3,42 +3,98 @@ require "cogy/handler"
 require "cogy/command"
 
 module Cogy
+  # The supported Cog bundle config version.
+  #
+  # @see http://docs.operable.io/docs/bundle-configs
   COG_BUNDLE_VERSION = 4
 
-  # Holds all the registered Commands. Not to be messed with.
-  mattr_accessor :commands
+  # Holds all the registered {Command} objects along with their respective
+  # {Handler} objects. Not to be messed with.
   @@commands = {}
+  mattr_accessor :commands
 
-  # Bundle config-related stuff
-  mattr_accessor :bundle_name
+  # The bundle name.
+  # Used by {Cogy.bundle_config}.
   @@bundle_name = "cogy"
+  mattr_accessor :bundle_name
 
-  mattr_accessor :bundle_description
+  # The bundle description.
+  # Used by {Cogy.bundle_config}.
   @@bundle_description = "Cogy-generated commands"
+  mattr_accessor :bundle_description
 
   # Can be either a string or an object that responds to `#call` and returns
-  # a string.
+  # a String. Used by {Cogy.bundle_config}.
   #
-  # Must be set explicitly
-  mattr_accessor :bundle_version
+  # @note Must be set explicitly
+  #
+  # @example
+  #   bundle_version = -> { rand(2).to_s }
   @@bundle_version = nil
+  mattr_accessor :bundle_version
 
   # The path in the Cog Relay where the command executable is located.
+  # Used by {Cogy.bundle_config}.
   #
-  # Must be set explicitly.
-  mattr_accessor :executable_path
+  # @note Must be set explicitly.
   @@executable_path = nil
+  mattr_accessor :executable_path
 
-  # Paths where the files that define the commands will be searched in
-  mattr_accessor :command_load_paths
+  # Paths where the files that define the commands will be searched in the
+  # host application.
   @@command_load_paths = ["cogy"]
+  mattr_accessor :command_load_paths
 
+  # Registers a command to Cogy. All the options passed are used solely for
+  # generating the bundle config (ie. {Cogy.bundle_config}). The passed block
+  # is the code that will get executed when the command is invoked.
+  #
+  # The last value of the block is what will get printed as the result of the
+  # command. It should be a string. If you want to return early in a point
+  # inside the block, use `next` instead of `return`.
+  #
+  # @param cmd_name [String, Symbol] the name of the command. This is how the
+  #   command will be invoked in the chat.
+  # @param [Hash] opts the options to create the command with. All these options
+  #   are used solely for generating the bundle config for Cog, thus they map
+  #   directly to Cog's bundle config format.
+  #   See https://cog-book.operable.io/#_the_config_file for more information.
+  # @option opts [Array<Symbol, String>, Symbol, String] :args ([])
+  # @option opts [Hash{Symbol=>Hash}] :opts ({})
+  # @option opts [String] :desc required
+  # @option opts [String] :long_desc (nil)
+  # @option opts [String] :examples (nil)
+  # @option opts [Array] :rules (["allow"])
+  #
+  # @example
+  #   Cogy.on "calc",
+  #     args: [:a, :b],
+  #     opts: { op: { description: "The operation to perform", type: "string" } },
+  #     desc: "Perform an arithmetic operation between two numbers",
+  #     long_desc: "Operations supported are provided with their respective symbols
+  #                 passed as the --op option.",
+  #     examples: "Addition:       !calc --op + 1 2\n" \
+  #               "Subtraction:    !calc --op - 5 3\n" \
+  #               "Multiplication: !calc --op * 2 5\n" \
+  #               "Division:       !calc --op / 3 2\",
+  #     rules: ["allow"] do |req_args, req_opts, user|
+  #     result = req_args.map(&:to_i).inject(&req_opts["op"].to_sym)
+  #     "Hello #{user}, the answer is: #{result}"
+  #   end
+  #
+  # @return [void]
+  #
+  # @note If you want to return early in a point inside a command block,
+  #   `next` should be used instead of `return`, due to the way Proc objects
+  #   work in Ruby.
   def self.on(cmd_name, opts = {}, &blk)
     cmd = Command.new(cmd_name, opts)
     handler = Handler.new(blk)
     cmd.register!(handler)
   end
 
+  # Generates the bundle config
+  #
   # @return [Hash]
   def self.bundle_config
     version = if bundle_version.respond_to?(:call)
@@ -83,6 +139,15 @@ module Cogy
     config
   end
 
+  # Configures Cogy according to the passed block.
+  #
+  # @example
+  #   Cogy.configure do |c|
+  #     c.bundle_name = "foo"
+  #   end
+  #
+  # @yield [self] yields {Cogy}
+  # @return [void]
   def self.configure
     yield self
   end
