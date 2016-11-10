@@ -28,5 +28,10 @@ module Cogy
       get "/cogy/cmd/calc/george", cog_opt_op: "/", cog_argv_0: 10, cog_argv_1: 5
       assert_equal "Hello george, the answer is: 2", response.body
     end
+
+    def test_command_not_found
+      get "/cogy/cmd/idontexist/foo"
+      assert_equal 404, response.status
+    end
   end
 end
