@@ -1,4 +1,4 @@
-# Cogy
+# Cogy [![Build Status](https://api.travis-ci.org/skroutz/cogy.svg?branch=master)](https://travis-ci.org/skroutz/cogy)
 
 Cogy integrates [Cog](https://operable.io/) with Rails
 in a way that writing & deploying commands from your application is a breeze.
@@ -7,10 +7,10 @@ See the API documentation [here](http://www.rubydoc.info/github/skroutz/cogy).
 
 ## Status
 
-*DISCLAIMER*: While we use Cogy in production, it's still in public alpha and
-is under heavy development.
+Cogy is still in public alpha.
 
-This means that a few critical bits are missing and the API is not stable yet.
+While we use it in production, it's still under heavy development.
+This means that there are a few rough edges and some important bits are missing.
 
 However we'd love any [feedback, suggestions or ideas](https://github.com/skroutz/cogy/issues/new).
 
