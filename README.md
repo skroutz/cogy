@@ -54,10 +54,13 @@ Cogy is essentially three things:
    requests to their respective handlers. It also creates the `/inventory`
    endpoint, which serves the installable bundle configuration in YAML and can be
    consumed directly by the [`cogy:install`](https://github.com/skroutz/cogy-bundle) command.
-3. An Cog bundle that contains the [executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) which all commands point to.
-   This is placed inside the Relays and performs the requests to your application
+3. A [Cog bundle](https://github.com/skroutz/cogy-bundle) that contains the
+   [executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy)
+   that all the commands end up invoking.
+   It is placed inside the Relays and performs the requests to your application
    when a user invokes a command in the chat. It then posts the result back
-   to the user. It also contains the `cogy:install` command.
+   to the user. It also contains the `cogy:install` command for automating
+   the task of installing the new bundle when a command is added/modified.
 
 ## Requirements
 
