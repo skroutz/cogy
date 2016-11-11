@@ -62,6 +62,9 @@ Cogy is essentially three things:
    to the user. It also contains the `cogy:install` command for automating
    the task of installing the new bundle when a command is added/modified.
 
+Take a look at the relevant [diagrams](diagrams/) for an illustration of how
+Cogy works.
+
 ## Requirements
 
 * [cogy bundle](https://github.com/skroutz/cogy-bundle)
