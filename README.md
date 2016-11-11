@@ -144,6 +144,12 @@ end
 
 This will print "bar" back to the user who calls `!foo` in Slack, for example.
 
+Inside the block there are (3) parameters yielded:
+
+* an array containing the arguments passed to the command
+* a hash containing the options passed to the command
+* a string containing the chat handle of the user that called the command
+
 A more complete command:
 
 ```ruby
