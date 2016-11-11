@@ -3,40 +3,40 @@
 Cogy integrates [Cog](https://operable.io/) with Rails
 in a way that writing & deploying commands from your application is a breeze.
 
+See the API documentation [here](http://www.rubydoc.info/github/skroutz/cogy).
+
 ## Status
 
 *DISCLAIMER*: While we use Cogy in production, it's still in public alpha and
 is under heavy development.
 
-This means that a few critical bits are missing (the Relay executable and
-RSpec helpers to name a few) and the API is not stable yet.
+This means that a few critical bits are missing and the API is not stable yet.
 
-However we'd love any feedback, suggestions or ideas.
+However we'd love any [feedback, suggestions or ideas](https://github.com/skroutz/cogy/issues/new).
 
 ## Why
 
-Creating a Cog command that talks with a Rails app typically involves writing
+Creating a ChatOps command that talks with a Rails app typically involves writing
 a route, maybe a controller, an action and code to handle the command arguments
 and options.
 
-This is a tedious and repetitive task and involves writing a lot of boilerplate
+This is a tedious and repetitive task and involves a lot of boilerplate
 code each time someone wants to add a new command.
 
 Cogy is an opinionated library that provides a way to get rid of all the
-repetitive work and makes writing commands a breeze!
+repetitive work.
 
-Making a new command available for use is as simple as adding the following line
-to a file in your application:
+Writing a new command and deploying it is as simple as:
 
 ```ruby
 # in cogy/my_commands.rb
 
-on "foo", desc: "Echo a foo bar back at you!" do |_args, _opts, user|
+on "foo", desc: "Echo a foo bar back at you!" do |_, _, user|
   "@#{user}: foo bar"
 end
 ```
 
-...and deploying!
+...and deploying! After a second or so, the command is ready to be used.
 
 ## How it works
 
@@ -44,21 +44,20 @@ Cogy is essentially three things:
 
 1. An opinionated way to write, manage & ship commands: All Cogy commands are
    defined in your Rails app and end up invoking a [single executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) within the
-   Relay. The Cogy library (ie. this gem) then provides versioning and
-   dynamically generates the bundle config, which is also served by your Rails
-   app via a Rails Engine.
-   This, accompanied with the [`cogy:install`](https://github.com/skroutz/cogy-bundle)
-   command that can automatically install the Cogy-generated bundle, makes it
-   possible to automatically install the newly-written commands via a trigger which is
-   hooked in your deployment procedure.
-2. A Rails Engine that is mounted in your application and routes the incoming
-   requests to their user-defined handlers. It also creates the `/inventory`
+   Relay. Cogy also provides bundle versioning and dynamically generates the
+   installable bundle config, which is also served by your Rails application
+   and consumed by the [`cogy:install`](https://github.com/skroutz/cogy-bundle)
+   command that installs the new Cogy-generated bundle when you deploy your
+   application.
+2. A library that provides the API for defining the commands. This library
+   is integrated in your application via a Rails Engine that routes the incoming
+   requests to their respective handlers. It also creates the `/inventory`
    endpoint, which serves the installable bundle configuration in YAML and can be
    consumed directly by the [`cogy:install`](https://github.com/skroutz/cogy-bundle) command.
-3. An [executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) which all commands point to.
+3. An Cog bundle that contains the [executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) which all commands point to.
    This is placed inside the Relays and performs the requests to your application
    when a user invokes a command in the chat. It then posts the result back
-   to the user.
+   to the user. It also contains the `cogy:install` command.
 
 ## Requirements
 
@@ -123,7 +122,7 @@ end
 
 ## Usage
 
-Commands are defined like so:
+Defining a new command:
 
 ```ruby
 # in cogy/commands.rb
@@ -133,15 +132,15 @@ on "foo", desc: "Echo a bar" do
 end
 ```
 
-The last line evaluated is the result of the command.
+This will print "bar" back to the user who calls `!foo` in Slack, for example.
 
-A more complete example:
+A more complete command:
 
 ```ruby
 # in cogy/commands.rb
 on "calc",
   args: [:a, :b],
-  opts: { op: { type: "string", required: true, short_flag: "o" } },
+  opts: { op: { type: "string" } },
   desc: "Performs a calculation between numbers <a> and <b>",
   examples: "!myapp:calc sum 1 2" do |req_args, req_opts, user|
   op = req_opts[:op].to_sym
@@ -150,9 +149,11 @@ on "calc",
 end
 ```
 
+For more examples see the [test commands](https://github.com/skroutz/cogy/tree/master/test/dummy/cogy).
+
 ## Error template
 
-When a command throws an error, the default error template is rendered, which
+When a command throws an error the [default error template](https://github.com/skroutz/cogy/blob/master/app/views/cogy/error.text.erb) is rendered, which
 is the following:
 
     @<%= @user %>: Command '<%= @cmd %>' returned an error.
@@ -161,7 +162,7 @@ is the following:
     <%= @exception.class %>:<%= @exception.message %>
     ```
 
-However it can be overriden in the application by creating a view in
+It can be overriden in the application by creating a view in
 `app/views/cogy/error.text.erb`.
 
 ## Authors
@@ -172,4 +173,3 @@ However it can be overriden in the application by creating a view in
 ## License
 
 Cogy is licensed under MIT. See [LICENSE](LICENSE).
-
