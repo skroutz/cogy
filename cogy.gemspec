@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.authors     = ["Agis Anastasopoulos"]
   s.email       = ["agis.anast@gmail.com"]
   s.homepage    = "https://github.com/skroutz/cogy"
-  s.summary     = "Easily manage Cog commands from your Rails apps"
-  s.description = "Cogy makes writing and maintaining Cog commands in Rails " \
-    "a breeze"
+  s.summary     = "Develop & deploy Cog commands from your Rails app"
+  s.description = "Cogy integrates Cog with Rails in a way that writing " \
+    "and deploying commands from your application is a breeze."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
