@@ -19,4 +19,9 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+require 'yard'
+YARD::Rake::YardocTask.new do |t|
+  t.files   = ['app/**/*.rb', 'config/**/*.rb', 'lib/**/*.rb']
+end
+
 task default: :test

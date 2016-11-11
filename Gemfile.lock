@@ -119,6 +119,7 @@ GEM
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    yard (0.9.5)
 
 PLATFORMS
   ruby
@@ -128,6 +129,4 @@ DEPENDENCIES
   minitest-reporters
   pry-byebug
   sqlite3
-
-BUNDLED WITH
-   1.13.6
+  yard
