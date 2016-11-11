@@ -1,7 +1,7 @@
 module Cogy
   # {Command} represents a user-defined registered command that can be used
   # in the chat. It contains the Cog-related stuff (ie. everything that
-  # needs to be in the bundle config).
+  # needs to be in the bundle config) and a respective {Handler}.
   #
   # Each {Command} also contains its {Handler} that will be called when the
   # command is run.
@@ -42,7 +42,7 @@ module Cogy
       Cogy.commands[name] = self
     end
 
-    # Executes a command
+    # Executes the handler of the command, see {Handler#run}.
     def run!(*args)
       handler.run(*args)
     end
