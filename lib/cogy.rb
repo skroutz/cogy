@@ -13,31 +13,34 @@ module Cogy
   @@commands = {}
   mattr_accessor :commands
 
-  # The bundle name.
+  # The Cog bundle name.
+  #
   # Used by {Cogy.bundle_config}.
   @@bundle_name = "cogy"
   mattr_accessor :bundle_name
 
-  # The bundle description.
+  # The Cog bundle description.
+  #
   # Used by {Cogy.bundle_config}.
   @@bundle_description = "Cogy-generated commands"
   mattr_accessor :bundle_description
 
-  # Can be either a string or an object that responds to `#call` and returns
-  # a String. Used by {Cogy.bundle_config}.
+  # The Cog bundle version. Can be either a string or an object that responds
+  # to `#call` and returns a string. Used by {Cogy.bundle_config}.
   #
-  # @note Must be set explicitly
+  # Used by {Cogy.bundle_config}.
   #
   # @example
   #   bundle_version = -> { rand(2).to_s }
-  @@bundle_version = nil
+  @@bundle_version = "0.0.1"
   mattr_accessor :bundle_version
 
-  # The path in the Cog Relay where the command executable is located.
-  # Used by {Cogy.bundle_config}.
+  # The path in the Cog Relay where the cogy executable
+  # (ie. https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) is
+  # located.
   #
-  # @note Must be set explicitly.
-  @@executable_path = nil
+  # Used by {Cogy.bundle_config}.
+  @@executable_path = "/usr/bin/cogy"
   mattr_accessor :executable_path
 
   # Paths where the files that define the commands will be searched in the
