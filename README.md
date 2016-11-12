@@ -85,7 +85,7 @@ gem "cogy"
 
 ## Configuration
 
-The options provided are the following:
+The configuration options provided are the following:
 
 ```ruby
 # in config/initializers/cogy.rb
@@ -102,10 +102,10 @@ Cogy.configure do |config|
   config.bundle_description = "myapp-generated commands from Cogy"
 
   # Can be either a string or an object that responds to `#call` and returns
-  # a string. Must be set explicitly.
+  # a string.
   config.bundle_version = "0.0.1"
 
-  # If you used a callable object, it will be evaluated each time the inventory
+  # if you used a callable object, it will be evaluated each time the inventory
   # is called. This can be useful if you want the version to change dynamically
   # when it's needed.
   #
@@ -117,7 +117,6 @@ Cogy.configure do |config|
   }
 
   # The path in the Relay where the cogy command executable is located at.
-  # Must be set explicitly.
   config.executable_path = "/cogcmd/cogy"
 
   # Paths in your application where the files that define the commands live in.
@@ -128,6 +127,12 @@ Cogy.configure do |config|
   config.command_load_paths = "cogy"
 end
 
+```
+
+You can use the generator to quickly create a config initializer in your app:
+
+```shell
+$ bin/rails g cogy:config
 ```
 
 ## Usage
