@@ -75,13 +75,58 @@ Cogy works.
 * Ruby 2.1+
 * Tested with Rails 4.2
 
-## Installation
+## Install
 
 Add the following to your Gemfile:
 
 ```ruby
 gem "cogy"
 ```
+
+Then mount the engine:
+
+```ruby
+# in config/routes.rb
+mount Cogy::Engine, at: "/cogy"
+```
+
+## Usage
+
+Defining a new command:
+
+```ruby
+# in cogy/commands.rb
+
+on "foo", desc: "Echo a bar" do
+  "bar"
+end
+```
+
+This will print "bar" back to the user who calls `!foo` in Slack, for example.
+
+Inside the block there are (3) parameters yielded:
+
+* an array containing the arguments passed to the command
+* a hash containing the options passed to the command
+* a string containing the chat handle of the user that called the command
+
+A more complete command:
+
+```ruby
+# in cogy/commands.rb
+on "calc",
+  args: [:a, :b],
+  opts: { op: { type: "string" } },
+  desc: "Performs a calculation between numbers <a> and <b>",
+  examples: "!myapp:calc sum 1 2" do |req_args, req_opts, user|
+  op = req_opts[:op].to_sym
+  result = req_args.map(&:to_i).inject(&op)
+  "Hello @#{user}, the result is: #{result}"
+end
+```
+
+For more examples see the [test commands](https://github.com/skroutz/cogy/tree/master/test/dummy/cogy).
+
 
 ## Configuration
 
@@ -135,42 +180,6 @@ You can use the generator to quickly create a config initializer in your app:
 $ bin/rails g cogy:config
 ```
 
-## Usage
-
-Defining a new command:
-
-```ruby
-# in cogy/commands.rb
-
-on "foo", desc: "Echo a bar" do
-  "bar"
-end
-```
-
-This will print "bar" back to the user who calls `!foo` in Slack, for example.
-
-Inside the block there are (3) parameters yielded:
-
-* an array containing the arguments passed to the command
-* a hash containing the options passed to the command
-* a string containing the chat handle of the user that called the command
-
-A more complete command:
-
-```ruby
-# in cogy/commands.rb
-on "calc",
-  args: [:a, :b],
-  opts: { op: { type: "string" } },
-  desc: "Performs a calculation between numbers <a> and <b>",
-  examples: "!myapp:calc sum 1 2" do |req_args, req_opts, user|
-  op = req_opts[:op].to_sym
-  result = req_args.map(&:to_i).inject(&op)
-  "Hello @#{user}, the result is: #{result}"
-end
-```
-
-For more examples see the [test commands](https://github.com/skroutz/cogy/tree/master/test/dummy/cogy).
 
 ## Error template
 
