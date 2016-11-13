@@ -77,18 +77,22 @@ Cogy works.
 
 ## Install
 
-Add the following to your Gemfile:
+Add it to your Gemfile:
 
 ```ruby
 gem "cogy"
 ```
 
-Then mount the engine:
+Then run `bundle install`
 
-```ruby
-# in config/routes.rb
-mount Cogy::Engine, at: "/cogy"
+Next, run the generator:
+
+```shell
+$ bin/rails g cogy:install
 ```
+
+This will create a sample command, mount the engine and add a sample
+configuration initializer in your application.
 
 ## Usage
 
