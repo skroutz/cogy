@@ -9,3 +9,9 @@ end
 on "print_env", desc: "Test cogy env access" do |_, _, _, env|
   env["cogy_foo"]
 end
+
+on "foohelper", desc: "" do |*, env|
+  foo(env)
+end
+
+

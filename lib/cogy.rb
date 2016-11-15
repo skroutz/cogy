@@ -154,4 +154,17 @@ module Cogy
   def self.configure
     yield self
   end
+
+  # Defines a user helper method that can be used throughout commands.
+  #
+  # @param [Symbol] name the name of the helper
+  # @param [Proc] blk the helper body
+  #
+  # @return [void]
+  #
+  # @example
+  #   Cogy.helper(:foo) { |env| env["COGY_POINT"].reverse }
+  def self.helper(name, &blk)
+    define_singleton_method(name, blk)
+  end
 end

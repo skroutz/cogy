@@ -4,4 +4,6 @@ Cogy.configure do |c|
   c.bundle_version = "0.0.1"
   c.executable_path = "/usr/bin/foo"
   c.command_load_paths = ["cogy"]
+
+  c.helper(:foo) { |env| env["cogy_foo"] }
 end

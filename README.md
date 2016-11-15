@@ -186,6 +186,29 @@ You can use the generator to quickly create a config initializer in your app:
 $ bin/rails g cogy:config
 ```
 
+### Helpers
+
+It is possible to define helpers that can be used throughout commands. They
+can be defined during configuration and can accept a variable number of
+arguments, or no arguments at all.
+
+Let's define a helper to associate the chat handle with an object in the
+`User` model:
+
+```ruby
+Cogy.configure do |c|
+  c.helper(:user) { |handle| User.find_by(chat_handle: handle) }
+end
+```
+
+Then we could have a command like this:
+
+```ruby
+on "fetch_user", desc: "Returns the user's email from the database" do |_, _, handle|
+  email = user(handle).email
+  "@#{handle}: Your email is #{email}"
+end
+```
 
 ## Error template
 
