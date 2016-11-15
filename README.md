@@ -108,11 +108,13 @@ end
 
 This will print "bar" back to the user who calls `!foo` in Slack, for example.
 
-Inside the block there are (3) parameters yielded:
+Inside the block there are (4) parameters yielded:
 
 * an array containing the arguments passed to the command
 * a hash containing the options passed to the command
 * a string containing the chat handle of the user that called the command
+* a hash containing the Cogy environment, that is, every environment variable
+  starting with 'COGY_' and set in the Relay
 
 A more complete command:
 
@@ -122,7 +124,7 @@ on "calc",
   args: [:a, :b],
   opts: { op: { type: "string" } },
   desc: "Performs a calculation between numbers <a> and <b>",
-  examples: "!myapp:calc sum 1 2" do |req_args, req_opts, user|
+  examples: "!myapp:calc sum 1 2" do |req_args, req_opts, user, _env|
   op = req_opts[:op].to_sym
   result = req_args.map(&:to_i).inject(&op)
   "Hello @#{user}, the result is: #{result}"

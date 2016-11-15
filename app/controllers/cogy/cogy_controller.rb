@@ -12,14 +12,15 @@ module Cogy
     # See https://github.com/skroutz/cogy-bundle.
     def command
       cmd = params[:cmd]
-      args = request.query_parameters.select { |k,_| k !~ /\Acog_opt_/ }.values
+      args = request.query_parameters.select { |k,_| k =~ /\Acog_argv_/ }.values
       opts = request.query_parameters.select { |k,_| k =~ /\Acog_opt_/ }
         .transform_keys { |k| k.sub("cog_opt_", "") }
+      cogy_env = request.query_parameters.select { |k,_| k =~ /\Acogy_/ }
       user = params[:user]
 
       begin
         if Cogy.commands[cmd]
-          render text: Cogy.commands[cmd].run!(args, opts, user)
+          render text: Cogy.commands[cmd].run!(args, opts, user, cogy_env)
         else
           render status: 404, text: "The command '#{cmd}' does not exist."
         end

@@ -21,12 +21,14 @@ module Cogy
     # @param [Hash] opts the Cog command options as provided by the user who
     #   invoked the command
     # @param [String] user chat handle of the user who invoked the command
+    # @param [Hash] env the Cogy environment (ie. all environment variables
+    #   in the Relay executable that start with 'COGY_')
     #
     # @return [String] the result of the command. This is what will get printed
     #   back to the user that invoked the command and is effectively the return
     #   value of the command body.
-    def run(args, opts, user)
-      @blk.call(args, opts, user)
+    def run(args, opts, user, env)
+      @blk.call(args, opts, user, env)
     end
   end
 end

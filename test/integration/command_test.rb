@@ -33,5 +33,10 @@ module Cogy
       get "/cogy/cmd/idontexist/foo"
       assert_equal 404, response.status
     end
+
+    def test_cogy_env
+      get "/cogy/cmd/print_env/george", cogy_foo: "bar"
+      assert_equal "bar", response.body
+    end
   end
 end
