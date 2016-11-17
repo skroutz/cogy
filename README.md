@@ -210,6 +210,8 @@ on "fetch_user", desc: "Returns the user's email from the database" do |_, _, ha
 end
 ```
 
+Rails path and URL helpers are automatically available for use inside commands.
+
 ## Error template
 
 When a command throws an error the [default error template](https://github.com/skroutz/cogy/blob/master/app/views/cogy/error.text.erb) is rendered, which

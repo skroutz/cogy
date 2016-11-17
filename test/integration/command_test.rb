@@ -38,5 +38,10 @@ module Cogy
       get "/cogy/cmd/print_env/george", cogy_foo: "bar"
       assert_equal "bar", response.body
     end
+
+    def test_rails_url_helpers
+      get "/cogy/cmd/rails_url_helpers/george"
+      assert_equal "http://dummy.com/baz /baz", response.body
+    end
   end
 end

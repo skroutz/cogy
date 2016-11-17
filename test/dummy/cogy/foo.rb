@@ -14,4 +14,7 @@ on "foohelper", desc: "" do |*, env|
   foo(env)
 end
 
+on "rails_url_helpers", desc: "" do
+  "#{baz_url(host: "dummy.com")} #{baz_path}"
+end
 
