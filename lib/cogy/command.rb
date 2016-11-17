@@ -1,19 +1,21 @@
 module Cogy
   # {Command} represents a user-defined registered command that can be used
   # in the chat. It contains the Cog-related stuff (ie. everything that
-  # needs to be in the bundle config) and a respective {Handler}.
-  #
-  # Each {Command} also contains its {Handler} that will be called when the
-  # command is run.
+  # needs to be in the bundle config) and a block that will run and return
+  # the result (ie. handler).
   class Command
-    attr :name, :args, :opts, :desc, :long_desc, :examples, :rules
+    attr :name
 
-    # Returns the {Handler} that will be invoked when the command is executed
+    # The code that will run when the command is invoked
     attr :handler
 
+    # Attributes related to the bundle config in Cog
+    attr :args, :opts, :desc, :long_desc, :examples, :rules
+
     # See {Cogy.on}
-    def initialize(name, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil)
+    def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil)
       @name = name.to_s
+      @handler = handler
       @args = [args].flatten.map!(&:to_s)
       @opts = opts.with_indifferent_access
       @desc = desc
@@ -24,27 +26,34 @@ module Cogy
 
     # Registers a command.
     #
-    # @param handler [Handler] the {Handler} that will be called when the command is
-    #   executed
-    #
     # @raise [StandardError] if a command with the same name is already
     #   registered
     #
     # @return [self]
-    def register!(handler)
+    def register!
       if Cogy.commands[name]
         raise "A command with the name #{name} is already registered"
       end
 
-      @handler = handler
-      @handler.command = self
-
       Cogy.commands[name] = self
     end
 
-    # Executes the handler of the command, see {Handler#run}.
-    def run!(*args)
-      handler.run(*args)
+    # Executes the handler.
+    #
+    # @param [Array] args the Cog command arguments as provided by the user
+    #   who invoked the command.
+    #   See https://cog-book.operable.io/#_first_steps_toward_cog_arguments
+    # @param [Hash] opts the Cog command options as provided by the user who
+    #   invoked the command
+    # @param [String] user chat handle of the user who invoked the command
+    # @param [Hash] env the Cogy environment (ie. all environment variables
+    #   in the Relay executable that start with 'COGY_')
+    #
+    # @return [String] the result of the command. This is what will get printed
+    #   back to the user that invoked the command and is effectively the return
+    #   value of the command body.
+    def run!(args, opts, user, env)
+      handler.call(args, opts, user, env)
     end
 
     # @return [String] the command arguments suitable for conversion to YAML

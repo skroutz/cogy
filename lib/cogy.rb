@@ -1,5 +1,4 @@
 require "cogy/engine"
-require "cogy/handler"
 require "cogy/command"
 
 module Cogy
@@ -8,8 +7,7 @@ module Cogy
   # @see http://docs.operable.io/docs/bundle-configs
   COG_BUNDLE_VERSION = 4
 
-  # Holds all the registered {Command} objects along with their respective
-  # {Handler} objects. Not to be messed with.
+  # Holds all the registered {Command} objects. Not to be messed with.
   @@commands = {}
   mattr_accessor :commands
 
@@ -90,10 +88,9 @@ module Cogy
   # @note If you want to return early in a point inside a command block,
   #   `next` should be used instead of `return`, due to the way Proc objects
   #   work in Ruby.
-  def self.on(cmd_name, opts = {}, &blk)
-    cmd = Command.new(cmd_name, opts)
-    handler = Handler.new(blk)
-    cmd.register!(handler)
+  def self.on(cmd_name, opts = {}, &handler)
+    cmd = Command.new(cmd_name, handler, opts)
+    cmd.register!
   end
 
   # Generates the bundle config
