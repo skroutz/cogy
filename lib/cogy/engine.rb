@@ -8,9 +8,7 @@ module Cogy
         files.each { |f| Cogy.module_eval(File.read(f)) }
       end
 
-      class << Cogy
-        include Rails.application.routes.url_helpers
-      end
+      Context.include(Rails.application.routes.url_helpers)
     end
   end
 end

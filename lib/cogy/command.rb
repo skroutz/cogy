@@ -4,9 +4,14 @@ module Cogy
   # needs to be in the bundle config) and a block that will run and return
   # the result (ie. handler).
   class Command
+    # The name of the command. Also used in {Cogy.bundle_config}.
+    #
+    # @return [String]
     attr :name
 
     # The code that will run when the command is invoked
+    #
+    # @return [Proc]
     attr :handler
 
     # Attributes related to the bundle config in Cog
@@ -36,24 +41,6 @@ module Cogy
       end
 
       Cogy.commands[name] = self
-    end
-
-    # Executes the handler.
-    #
-    # @param [Array] args the Cog command arguments as provided by the user
-    #   who invoked the command.
-    #   See https://cog-book.operable.io/#_first_steps_toward_cog_arguments
-    # @param [Hash] opts the Cog command options as provided by the user who
-    #   invoked the command
-    # @param [String] user chat handle of the user who invoked the command
-    # @param [Hash] env the Cogy environment (ie. all environment variables
-    #   in the Relay executable that start with 'COGY_')
-    #
-    # @return [String] the result of the command. This is what will get printed
-    #   back to the user that invoked the command and is effectively the return
-    #   value of the command body.
-    def run!(args, opts, user, env)
-      handler.call(args, opts, user, env)
     end
 
     # @return [String] the command arguments suitable for conversion to YAML

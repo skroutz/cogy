@@ -19,8 +19,9 @@ module Cogy
       user = params[:user]
 
       begin
-        if Cogy.commands[cmd]
-          render text: Cogy.commands[cmd].run!(args, opts, user, cogy_env)
+        if (command = Cogy.commands[cmd])
+          context = Context.new(args, opts, user, cogy_env)
+          render text: context.run!(command)
         else
           render status: 404, text: "The command '#{cmd}' does not exist."
         end

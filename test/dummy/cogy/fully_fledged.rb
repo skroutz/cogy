@@ -8,7 +8,7 @@ on "calc",
             "Subtraction:\n\n    !calc --op - 5 3\n\n"    \
             "Multiplication:\n\n    !calc --op * 2 5\n\n" \
             "Division:\n\n    !calc --op / 30 2\n\n",
-  rules: ["allow"] do |req_args, req_opts, user|
-  result = req_args.map(&:to_i).inject(&req_opts["op"].to_sym)
-  "Hello #{user}, the answer is: #{result}"
+  rules: ["allow"] do
+  result = args.map(&:to_i).inject(&opts["op"].to_sym)
+  "Hello #{handle}, the answer is: #{result}"
 end

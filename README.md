@@ -35,8 +35,8 @@ Writing a new command and deploying it is as simple as:
 ```ruby
 # in cogy/my_commands.rb
 
-on "foo", desc: "Echo a foo bar back at you!" do |_, _, user|
-  "@#{user}: foo bar"
+on "foo", desc: "Echo a foo bar back at you!" do
+  "@#{handle}: foo bar"
 end
 ```
 
@@ -108,15 +108,17 @@ end
 
 This will print "bar" back to the user who calls `!foo` in Slack, for example.
 
-Inside the block there are (4) parameters yielded:
+Inside the block there are the following pre-defined helpers available:
 
-* an array containing the arguments passed to the command
-* a hash containing the options passed to the command
-* a string containing the chat handle of the user that called the command
-* a hash containing the Cogy environment, that is, every environment variable
+* `#args`: an array containing the arguments passed to the command
+* `#opts`: a hash containing the options passed to the command
+* `#handle`: the chat handle of the user who called the command
+* `#env`: a hash containing the Cogy environment, that is, every environment variable
   starting with 'COGY_' and set in the Relay
 
-A more complete command:
+For instructions on defining your own helpers, see [Helpers](#helpers).
+
+A more complete example:
 
 ```ruby
 # in cogy/commands.rb
@@ -124,9 +126,9 @@ on "calc",
   args: [:a, :b],
   opts: { op: { type: "string" } },
   desc: "Performs a calculation between numbers <a> and <b>",
-  examples: "!myapp:calc sum 1 2" do |req_args, req_opts, user, _env|
-  op = req_opts[:op].to_sym
-  result = req_args.map(&:to_i).inject(&op)
+  examples: "myapp:calc sum 1 2" do
+  op = opts[:op].to_sym
+  result = args.map(&:to_i).inject(&op)
   "Hello @#{user}, the result is: #{result}"
 end
 ```
@@ -192,25 +194,43 @@ It is possible to define helpers that can be used throughout commands. They
 can be defined during configuration and can accept a variable number of
 arguments, or no arguments at all.
 
-Let's define a helper to associate the chat handle with an object in the
-`User` model:
+Let's define a helper that fetches a `Shops` address of the user who called the
+command:
 
 ```ruby
 Cogy.configure do |c|
-  c.helper(:user) { |handle| User.find_by(chat_handle: handle) }
+  c.helper(:shop_address) { Shop.find_by(owner: handle).address }
 end
 ```
+
+*(Note that custom helpers also have access to the default helpers like
+`handle`, `args` etc.)*
 
 Then we could have a command like this:
 
 ```ruby
-on "fetch_user", desc: "Returns the user's email from the database" do |_, _, handle|
-  email = user(handle).email
-  "@#{handle}: Your email is #{email}"
+on "shop_address", desc: "Returns the user's Shop address" do
+  "@#{handle}: Your shop's address is #{shop_address}"
 end
 ```
 
-Rails path and URL helpers are automatically available for use inside commands.
+We can also define helpers that accept arguments:
+
+```ruby
+Cogy.configure do |c|
+  c.helper(:format) { |answer| answer.titleize }
+end
+```
+
+Then in our command we could call it like so:
+
+```ruby
+on "foo", desc: "Nothing special" do
+  format "hello there, how are you today?"
+end
+```
+
+Rails' URL helpers are also available inside the commands.
 
 ## Error template
 

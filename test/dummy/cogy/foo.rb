@@ -6,15 +6,19 @@ on "raiser", desc: "Raises an exception" do
   raise "boom"
 end
 
-on "print_env", desc: "Test cogy env access" do |_, _, _, env|
+on "print_env", desc: "Test cogy env access" do
   env["cogy_foo"]
 end
 
-on "foohelper", desc: "" do |*, env|
-  foo(env)
+on "foohelper", desc: "" do
+  foo
 end
 
 on "rails_url_helpers", desc: "" do
   "#{baz_url(host: "dummy.com")} #{baz_path}"
+end
+
+on "titleize", desc: "" do
+  bar "this should be titleized"
 end
 
