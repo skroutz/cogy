@@ -1,6 +1,6 @@
 require "cogy/engine"
-require "cogy/handler"
 require "cogy/command"
+require "cogy/context"
 
 module Cogy
   # The supported Cog bundle config version.
@@ -8,8 +8,7 @@ module Cogy
   # @see http://docs.operable.io/docs/bundle-configs
   COG_BUNDLE_VERSION = 4
 
-  # Holds all the registered {Command} objects along with their respective
-  # {Handler} objects. Not to be messed with.
+  # Holds all the registered {Command} objects. Not to be messed with.
   @@commands = {}
   mattr_accessor :commands
 
@@ -56,6 +55,9 @@ module Cogy
   # command. It should be a string. If you want to return early in a point
   # inside the block, use `next` instead of `return`.
   #
+  # Inside the command block, there are the public attributes of {Context}
+  # available.
+  #
   # @param cmd_name [String, Symbol] the name of the command. This is how the
   #   command will be invoked in the chat.
   # @param [Hash] opts the options to create the command with. All these options
@@ -80,8 +82,8 @@ module Cogy
   #               "Subtraction:    !calc --op - 5 3\n" \
   #               "Multiplication: !calc --op * 2 5\n" \
   #               "Division:       !calc --op / 3 2\",
-  #     rules: ["allow"] do |req_args, req_opts, user|
-  #     result = req_args.map(&:to_i).inject(&req_opts["op"].to_sym)
+  #     rules: ["allow"] do
+  #     result = args.map(&:to_i).inject(&opts["op"].to_sym)
   #     "Hello #{user}, the answer is: #{result}"
   #   end
   #
@@ -90,10 +92,9 @@ module Cogy
   # @note If you want to return early in a point inside a command block,
   #   `next` should be used instead of `return`, due to the way Proc objects
   #   work in Ruby.
-  def self.on(cmd_name, opts = {}, &blk)
-    cmd = Command.new(cmd_name, opts)
-    handler = Handler.new(blk)
-    cmd.register!(handler)
+  def self.on(cmd_name, opts = {}, &handler)
+    cmd = Command.new(cmd_name, handler, opts)
+    cmd.register!
   end
 
   # Generates the bundle config
@@ -162,9 +163,17 @@ module Cogy
   #
   # @return [void]
   #
+  # @note User helpers also have access to the default helpers like `user`, `env`
+  #   etc.
+  #
   # @example
-  #   Cogy.helper(:foo) { |env| env["COGY_POINT"].reverse }
+  #   Cogy.configure do |c|
+  #     helper(:user) { User.find_by(slack_handle: handle) }
+  #
+  #     # a helper that accepts an argument
+  #     helper(:format) { |answer| answer.titleize }
+  #   end
   def self.helper(name, &blk)
-    define_singleton_method(name, blk)
+    Context.class_eval { define_method(name, blk) }
   end
 end

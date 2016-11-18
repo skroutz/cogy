@@ -5,5 +5,6 @@ Cogy.configure do |c|
   c.executable_path = "/usr/bin/foo"
   c.command_load_paths = ["cogy"]
 
-  c.helper(:foo) { |env| env["cogy_foo"] }
+  c.helper(:foo) { env["cogy_foo"] }
+  c.helper(:bar) { |text| text.titleize }
 end

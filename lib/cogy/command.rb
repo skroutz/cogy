@@ -1,19 +1,26 @@
 module Cogy
   # {Command} represents a user-defined registered command that can be used
   # in the chat. It contains the Cog-related stuff (ie. everything that
-  # needs to be in the bundle config) and a respective {Handler}.
-  #
-  # Each {Command} also contains its {Handler} that will be called when the
-  # command is run.
+  # needs to be in the bundle config) and a block that will run and return
+  # the result (ie. handler).
   class Command
-    attr :name, :args, :opts, :desc, :long_desc, :examples, :rules
+    # The name of the command. Also used in {Cogy.bundle_config}.
+    #
+    # @return [String]
+    attr :name
 
-    # Returns the {Handler} that will be invoked when the command is executed
+    # The code that will run when the command is invoked
+    #
+    # @return [Proc]
     attr :handler
 
+    # Attributes related to the bundle config in Cog
+    attr :args, :opts, :desc, :long_desc, :examples, :rules
+
     # See {Cogy.on}
-    def initialize(name, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil)
+    def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil)
       @name = name.to_s
+      @handler = handler
       @args = [args].flatten.map!(&:to_s)
       @opts = opts.with_indifferent_access
       @desc = desc
@@ -24,27 +31,16 @@ module Cogy
 
     # Registers a command.
     #
-    # @param handler [Handler] the {Handler} that will be called when the command is
-    #   executed
-    #
     # @raise [StandardError] if a command with the same name is already
     #   registered
     #
     # @return [self]
-    def register!(handler)
+    def register!
       if Cogy.commands[name]
         raise "A command with the name #{name} is already registered"
       end
 
-      @handler = handler
-      @handler.command = self
-
       Cogy.commands[name] = self
-    end
-
-    # Executes the handler of the command, see {Handler#run}.
-    def run!(*args)
-      handler.run(*args)
     end
 
     # @return [String] the command arguments suitable for conversion to YAML
