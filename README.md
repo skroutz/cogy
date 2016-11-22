@@ -246,6 +246,20 @@ is the following:
 It can be overriden in the application by creating a view in
 `app/views/cogy/error.text.erb`.
 
+## Development
+
+Running the tests:
+
+```shell
+$ rake
+```
+
+Generating documentation:
+
+```shell
+$ rake yard
+```
+
 ## Authors
 
 * [Agis Anastasopoulos](https://github.com/agis-)
