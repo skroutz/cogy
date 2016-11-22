@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cogy (0.0.3)
+    cogy (0.1.0)
       rails (~> 4.2, >= 4.2.7.1)
 
 GEM
@@ -130,3 +130,6 @@ DEPENDENCIES
   pry-byebug
   sqlite3
   yard
+
+BUNDLED WITH
+   1.13.6
