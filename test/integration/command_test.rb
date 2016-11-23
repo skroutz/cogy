@@ -43,5 +43,15 @@ module Cogy
       get "/cogy/cmd/rails_url_helpers/george"
       assert_equal "http://dummy.com/baz /baz", response.body
     end
+
+    def test_invalid_opts_declaration
+      exception = assert_raises(ArgumentError) do
+        Cogy.on "invalidopts", desc: "foo", opts: { foo: {} } do
+          1
+        end
+      end
+
+      assert_match(/\[:type, :required\]/, exception.message)
+    end
   end
 end

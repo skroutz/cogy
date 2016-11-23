@@ -124,7 +124,7 @@ A more complete example:
 # in cogy/commands.rb
 on "calc",
   args: [:a, :b],
-  opts: { op: { type: "string" } },
+  opts: { op: { type: "string", required: true } },
   desc: "Performs a calculation between numbers <a> and <b>",
   examples: "myapp:calc sum 1 2" do
   op = opts[:op].to_sym

@@ -1,6 +1,6 @@
 on "calc",
   args: [:a, :b],
-  opts: { op: { description: "The operation to perform", type: "string" } },
+  opts: { op: { description: "The operation to perform", type: "string", required: true } },
   desc: "Perform an arithmetic operation between two numbers",
   long_desc: "Operations supported are provided with their respective symbols
               passed as the --op option.",

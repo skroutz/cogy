@@ -27,6 +27,8 @@ module Cogy
       @long_desc = long_desc
       @examples = examples
       @rules = rules || ["allow"]
+
+      validate_opts
     end
 
     # Registers a command.
@@ -55,6 +57,19 @@ module Cogy
       # Convert to Hash in order to get rid of HashWithIndifferentAccess,
       # otherwise the resulting YAML will contain garbage.
       opts.to_hash
+    end
+
+    private
+
+    def validate_opts
+      opts.each do |k, v|
+        missing = [:type, :required] - v.keys.map(&:to_sym)
+
+        if !missing.empty?
+          raise ArgumentError,
+            "`#{name}`: Parameters #{missing} for `#{k}` option are missing"
+        end
+      end
     end
   end
 end
