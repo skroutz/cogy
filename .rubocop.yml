@@ -4,6 +4,7 @@ AllCops:
   DisabledByDefault: true
   Exclude:
     - 'test/dummy/**/*'
+    - 'vendor/**/*'
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
