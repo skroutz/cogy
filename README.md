@@ -9,6 +9,8 @@ in a way that writing & deploying commands from your application is a breeze.
 
 See the API documentation [here](http://www.rubydoc.info/github/skroutz/cogy).
 
+The Changelog is available [here](CHANGELOG.md).
+
 ## Status
 
 Cogy is still in public alpha.
