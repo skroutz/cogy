@@ -1,0 +1,9 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  DisabledByDefault: true
+  Exclude:
+    - 'test/dummy/**/*'
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

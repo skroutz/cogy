@@ -11,7 +11,6 @@ load 'rails/tasks/statistics.rake'
 Bundler::GemHelper.install_tasks
 
 require 'rake/testtask'
-
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test'
@@ -24,4 +23,7 @@ YARD::Rake::YardocTask.new do |t|
   t.files   = ['app/**/*.rb', 'config/**/*.rb', 'lib/**/*.rb']
 end
 
-task default: :test
+require "rubocop/rake_task"
+RuboCop::RakeTask.new
+
+task default: [:test, :rubocop]
