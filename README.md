@@ -250,10 +250,22 @@ It can be overriden in the application by creating a view in
 
 ## Development
 
-Running the tests:
+Running the tests and RuboCop:
 
 ```shell
 $ rake
+```
+
+Running just the tests:
+
+```shell
+$ rake test
+```
+
+Running RuboCop:
+
+```shell
+$ rake rubocop
 ```
 
 Generating documentation:
