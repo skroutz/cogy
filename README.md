@@ -9,7 +9,7 @@ in a way that writing & deploying commands from your application is a breeze.
 
 See the API documentation [here](http://www.rubydoc.info/github/skroutz/cogy).
 
-The Changelog is available [here](CHANGELOG.md).
+Refer to the [Changelog](CHANGELOG.md) to see what's changed between releases.
 
 ## Status
 
