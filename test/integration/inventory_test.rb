@@ -51,4 +51,3 @@ module Cogy
     end
   end
 end
-

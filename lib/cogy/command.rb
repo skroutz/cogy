@@ -7,15 +7,15 @@ module Cogy
     # The name of the command. Also used in {Cogy.bundle_config}.
     #
     # @return [String]
-    attr :name
+    attr_reader :name
 
     # The code that will run when the command is invoked
     #
     # @return [Proc]
-    attr :handler
+    attr_reader :handler
 
     # Attributes related to the bundle config in Cog
-    attr :args, :opts, :desc, :long_desc, :examples, :rules
+    attr_reader :args, :opts, :desc, :long_desc, :examples, :rules
 
     # See {Cogy.on}
     def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil)
@@ -67,7 +67,7 @@ module Cogy
 
         if !missing.empty?
           raise ArgumentError,
-            "`#{name}`: Parameters #{missing} for `#{k}` option are missing"
+                "`#{name}`: Parameters #{missing} for `#{k}` option are missing"
         end
       end
     end

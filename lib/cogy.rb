@@ -102,16 +102,16 @@ module Cogy
   # @return [Hash]
   def self.bundle_config
     version = if bundle_version.respond_to?(:call)
-      bundle_version.call
-    else
-      bundle_version
-    end
+                bundle_version.call
+              else
+                bundle_version
+              end
 
     config = {
       "cog_bundle_version" => COG_BUNDLE_VERSION,
       "name" => bundle_name,
       "description" => bundle_description,
-      "version" => version,
+      "version" => version
     }
 
     config["commands"] = {} if commands.present?

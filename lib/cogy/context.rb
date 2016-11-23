@@ -12,24 +12,24 @@ module Cogy
     #   invoked the command.
     #
     # @see https://cog-book.operable.io/#_arguments
-    attr :args
+    attr_reader :args
 
     # @return [Hash] The Cog command options as provided by the user who
     #   invoked the command
     #
     # @see https://cog-book.operable.io/#_options
-    attr :opts
+    attr_reader :opts
 
     # @return [String] The chat handle of the user who invoked the command
     #
     # @see https://cog-book.operable.io/#_general_metadata
-    attr :handle
+    attr_reader :handle
 
     # @return [Hash] The Cogy environment (ie. all environment variables in
     # the Relay executable that start with 'COGY_')
     #
     # @see https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy
-    attr :env
+    attr_reader :env
 
     def initialize(args, opts, handle, env)
       @args = args

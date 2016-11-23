@@ -4,7 +4,7 @@ module Cogy
 
     config.after_initialize do
       Cogy.command_load_paths.each do |path|
-        files = Dir[Rails.root.join(path,"*.rb")]
+        files = Dir[Rails.root.join(path, "*.rb")]
         files.each { |f| Cogy.module_eval(File.read(f)) }
       end
 

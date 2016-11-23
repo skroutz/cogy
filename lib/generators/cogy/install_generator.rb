@@ -13,12 +13,12 @@ DESC
       end
 
       def copy_sample_command_and_readme
-        template 'command_file.rb', 'cogy/general.rb'
-        template 'cogy_folder_readme.md', 'cogy/README.md'
+        template "command_file.rb", "cogy/general.rb"
+        template "cogy_folder_readme.md", "cogy/README.md"
       end
 
       def mount_engine
-        route 'mount Cogy::Engine, at: "/cogy"'
+        route "mount Cogy::Engine, at: '/cogy'"
       end
     end
   end

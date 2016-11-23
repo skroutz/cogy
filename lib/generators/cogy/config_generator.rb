@@ -5,10 +5,10 @@ module Cogy
 
       desc <<DESC
 Description:
-    Copies Cogy configuration file to your application's initializer directory.
+    Copies Cogy configuration file to your application"s initializer directory.
 DESC
       def copy_config_file
-        template 'cogy_config.rb', 'config/initializers/cogy.rb'
+        template "cogy_config.rb", "config/initializers/cogy.rb"
       end
     end
   end

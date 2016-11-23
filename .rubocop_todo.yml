@@ -10,12 +10,3 @@
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
 # SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'bin/rails'
-    - 'config/routes.rb'
-    - 'lib/generators/cogy/config_generator.rb'
-    - 'lib/generators/cogy/install_generator.rb'
-    - 'test/support/helpers.rb'

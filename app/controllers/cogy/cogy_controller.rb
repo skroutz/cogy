@@ -12,10 +12,10 @@ module Cogy
     # See https://github.com/skroutz/cogy-bundle.
     def command
       cmd = params[:cmd]
-      args = request.query_parameters.select { |k,_| k =~ /\Acog_argv_/ }.values
-      opts = request.query_parameters.select { |k,_| k =~ /\Acog_opt_/ }
-        .transform_keys { |k| k.sub("cog_opt_", "") }
-      cogy_env = request.query_parameters.select { |k,_| k =~ /\Acogy_/ }
+      args = request.query_parameters.select { |k, _| k.start_with?("cog_argv_") }.values
+      opts = request.query_parameters.select { |k, _| k.start_with?("cog_opt_") }
+                    .transform_keys { |k| k.sub("cog_opt_", "") }
+      cogy_env = request.query_parameters.select { |k, _| k.start_with?("cogy_") }
       user = params[:user]
 
       begin
