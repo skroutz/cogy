@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### Fixed
+
+- Cog arguments are now ordered properly (8a55004e)
+
 ## [0.1.1] - 2016-11-25
 
 ### Changes
