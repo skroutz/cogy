@@ -22,3 +22,6 @@ on "titleize", desc: "" do
   bar "this should be titleized"
 end
 
+on "args_order", args: [:a, :b, :c], desc: "" do
+  args.join
+end

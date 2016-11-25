@@ -53,5 +53,10 @@ module Cogy
 
       assert_match(/\[:type, :required\]/, exception.message)
     end
+
+    def test_args_ordering
+      get "/cogy/cmd/args_order/george", cog_argv_2: 3, cog_argv_1: 2, cog_argv_0: 1
+      assert_equal "123", response.body
+    end
   end
 end

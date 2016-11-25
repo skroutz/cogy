@@ -12,7 +12,9 @@ module Cogy
     # See https://github.com/skroutz/cogy-bundle.
     def command
       cmd = params[:cmd]
-      args = request.query_parameters.select { |k, _| k.start_with?("cog_argv_") }.values
+      args = request.query_parameters.select { |k, _| k.start_with?("cog_argv_") }
+                    .sort_by { |k, _| k.match(/\d+\z/)[0] }.to_h.values
+
       opts = request.query_parameters.select { |k, _| k.start_with?("cog_opt_") }
                     .transform_keys { |k| k.sub("cog_opt_", "") }
       cogy_env = request.query_parameters.select { |k, _| k.start_with?("cogy_") }
