@@ -6,16 +6,6 @@ module Cogy
 
     setup { @routes = Engine.routes }
 
-    def test_error_tmpl_message
-      get "/cogy/cmd/raiser/george"
-      assert response.body.include?("boom")
-    end
-
-    def test_error_tmpl_contenttype
-      get "/cogy/cmd/raiser/george"
-      assert_equal "text/plain", response.content_type.to_s
-    end
-
     def test_error_response_code
       get "/cogy/cmd/raiser/george"
       assert_equal 500, response.status
