@@ -101,21 +101,32 @@ configuration initializer in your application.
 Defining a new command:
 
 ```ruby
-# in cogy/commands.rb
+# in cogy/my_commands.rb
 
 on "foo", desc: "Echo a bar" do
   "bar"
 end
 ```
 
-This will print "bar" back to the user who calls `!foo` in Slack, for example.
+This will print "bar" back to the user who calls `!foo` in Slack.
+
+Let's define a command that simply adds the numbers passed as arguments:
+
+```ruby
+# in cogy/calculations.rb
+
+on "add", args: [:a, :b], desc: "Add two numbers" do
+  a.to_i + b.to_i
+end
+```
 
 Inside the block there are the following pre-defined helpers available:
 
-* `#args`: an array containing the arguments passed to the command
-* `#opts`: a hash containing the options passed to the command
-* `#handle`: the chat handle of the user who called the command
-* `#env`: a hash containing the Cogy environment, that is, every environment variable
+* `args`: an array containing the arguments passed to the command
+  * arguments can also be accessed by their names as local variables
+* `opts`: a hash containing the options passed to the command
+* `handle`: the chat handle of the user who called the command
+* `env`: a hash containing the Cogy environment, that is, every environment variable
   starting with 'COGY_' and set in the Relay
 
 For instructions on defining your own helpers, see [Helpers](#helpers).
