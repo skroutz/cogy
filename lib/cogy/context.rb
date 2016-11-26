@@ -8,7 +8,7 @@ module Cogy
   # command (https://github.com/skroutz/cogy-bundle) on behalf of the user.
   # You can think of it as the equivalent of the ActionPack's `Request` class.
   class Context
-    # @return [Command] the {Command} to be invoked by {Context#run!}
+    # @return [Command] the {Command} to be invoked by {Context#invoke}
     attr_reader :command
 
     # @return [Array] The Cog command arguments as passed by the user who
@@ -49,7 +49,7 @@ module Cogy
     # @return [String] the result of the command. This is what will get printed
     #   back to the user that invoked the command and is effectively the return
     #   value of the command body.
-    def run!
+    def invoke
       instance_eval(&command.handler)
     end
 

@@ -23,7 +23,7 @@ module Cogy
       begin
         if (command = Cogy.commands[cmd])
           context = Context.new(command, args, opts, user, cogy_env)
-          render text: context.run!
+          render text: context.invoke
         else
           render status: 404, text: "The command '#{cmd}' does not exist."
         end
