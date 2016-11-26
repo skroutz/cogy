@@ -23,7 +23,13 @@ module Cogy
     # The bundle description
     description: "Cog commands generated from Cogy",
 
-    # The bundle version
+    # The bundle version.
+    #
+    # Can also be an object that responds to `#call` and returns a string. For
+    # example:
+    #
+    #   -> { rand(1).to_s }
+    #
     version: "0.0.1",
 
     # The path in the Cog Relay where the cogy executable
