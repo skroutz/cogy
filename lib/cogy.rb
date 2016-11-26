@@ -12,35 +12,26 @@ module Cogy
   @@commands = {}
   mattr_accessor :commands
 
-  # The Cog bundle name.
+  # Configuration related to the Cog bundle. Used by {Cogy.bundle_config}
+  # in order to generate the bundle config YAML.
   #
-  # Used by {Cogy.bundle_config}.
-  @@bundle_name = "cogy"
-  mattr_accessor :bundle_name
+  # @see https://cog-book.operable.io/#_the_config_file
+  @@bundle = {
+    # The bundle name
+    name: "cogy",
 
-  # The Cog bundle description.
-  #
-  # Used by {Cogy.bundle_config}.
-  @@bundle_description = "Cogy-generated commands"
-  mattr_accessor :bundle_description
+    # The bundle description
+    description: "Cog commands generated from Cogy",
 
-  # The Cog bundle version. Can be either a string or an object that responds
-  # to `#call` and returns a string. Used by {Cogy.bundle_config}.
-  #
-  # Used by {Cogy.bundle_config}.
-  #
-  # @example
-  #   bundle_version = -> { rand(2).to_s }
-  @@bundle_version = "0.0.1"
-  mattr_accessor :bundle_version
+    # The bundle version
+    version: "0.0.1",
 
-  # The path in the Cog Relay where the cogy executable
-  # (ie. https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) is
-  # located.
-  #
-  # Used by {Cogy.bundle_config}.
-  @@executable_path = "/usr/bin/cogy"
-  mattr_accessor :executable_path
+    # The path in the Cog Relay where the cogy executable
+    # (ie. https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) is
+    # located.
+    cogy_executable: "/usr/bin/cogy"
+  }
+  mattr_accessor :bundle
 
   # Paths where the files that define the commands will be searched in the
   # host application.
@@ -101,16 +92,16 @@ module Cogy
   #
   # @return [Hash]
   def self.bundle_config
-    version = if bundle_version.respond_to?(:call)
-                bundle_version.call
+    version = if bundle[:version].respond_to?(:call)
+                bundle[:version].call
               else
-                bundle_version
+                bundle[:version]
               end
 
     config = {
       "cog_bundle_version" => COG_BUNDLE_VERSION,
-      "name" => bundle_name,
-      "description" => bundle_description,
+      "name" => bundle[:name],
+      "description" => bundle[:description],
       "version" => version
     }
 
@@ -118,7 +109,7 @@ module Cogy
 
     commands.each do |name, cmd|
       config["commands"][name] = {
-        "executable" => executable_path,
+        "executable" => bundle[:cogy_executable],
         "description" => cmd.desc,
         "rules" => cmd.rules
       }
@@ -145,13 +136,11 @@ module Cogy
 
   # Configures Cogy according to the passed block.
   #
-  # @example
-  #   Cogy.configure do |c|
-  #     c.bundle_name = "foo"
-  #   end
-  #
   # @yield [self] yields {Cogy}
+  #
   # @return [void]
+  #
+  # @see https://github.com/skroutz/cogy#configuration
   def self.configure
     yield self
   end

@@ -157,33 +157,41 @@ The configuration options provided are the following:
 # in config/initializers/cogy.rb
 
 Cogy.configure do |config|
-  # Used in the generated bundle config YAML.
-  #
-  # Default: "cogy"
-  config.bundle_name = "myapp"
+  # Configuration related to the generated Cog bundle. Will be used when
+  # generating the bundle config YAML to be installed.
+  config.bundle = {
+    # The bundle name.
+    #
+    # Default: "cogy"
+    name: "myapp",
 
-  # Used in the generated bundle config YAML.
-  #
-  # Default: "Cogy-generated commands"
-  config.bundle_description = "myapp-generated commands from Cogy"
+    # The bundle description
+    #
+    # Default: "Cog commands generated from Cogy"
+    description: "myapp-generated commands from Cogy",
 
-  # Can be either a string or an object that responds to `#call` and returns
-  # a string.
-  config.bundle_version = "0.0.1"
+    # The bundle version.
+    #
+    # Can be either a string or an object that responds to `#call` and returns
+    # a string.
+    #
+    # Default: "0.0.1"
+    version: "0.0.1",
 
-  # if you used a callable object, it will be evaluated each time the inventory
-  # is called. This can be useful if you want the version to change dynamically
-  # when it's needed.
-  #
-  # For example, this will change the version only when a command is
-  # added or is modified (uses the 'grit' gem).
-  config.bundle_version = -> {
-    repo = Grit::Repo.new(Rails.root.to_s)
-    repo.log("HEAD", "cogy/", max_count: 1).first.date.strftime("%y%m%d.%H%M%S")
+    # if you used a callable object, it will be evaluated each time the inventory
+    # is called. This can be useful if you want the version to change
+    # automatically.
+    #
+    # For example, this will change the version only when a command is
+    # added or is modified (uses the 'grit' gem).
+    version: -> {
+      repo = Grit::Repo.new(Rails.root.to_s)
+      repo.log("HEAD", "cogy/", max_count: 1).first.date.strftime("%y%m%d.%H%M%S")
+    },
+
+    # The path in the Relay where the cogy command executable is located.
+    cogy_executable: "/cogcmd/cogy"
   }
-
-  # The path in the Relay where the cogy command executable is located at.
-  config.executable_path = "/cogcmd/cogy"
 
   # Paths in your application where the files that define the commands live in.
   # For example the default value will search for all `*.rb` files in the `cogy/`

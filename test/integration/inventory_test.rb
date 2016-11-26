@@ -8,8 +8,8 @@ module Cogy
     setup { @routes = Engine.routes }
 
     def test_valid_yaml
-      with_config(bundle_name: "hyu", bundle_version: "5.0",
-                  bundle_description: "Yet another bundle",
+      with_config(bundle: { name: "hyu", version: "5.0",
+                            description: "Yet another bundle" },
                   command_load_paths: ["cogy"]) do |inv|
         assert_equal "hyu", inv["name"]
         assert_equal "5.0", inv["version"]
@@ -22,13 +22,13 @@ module Cogy
     end
 
     def test_bundle_version_lambda
-      with_config(bundle_version: -> { 1 + 2 }) do |inv|
+      with_config(bundle: { version: -> { 1 + 2 } }) do |inv|
         assert_equal 3, inv["version"]
       end
     end
 
     def test_commands_section
-      with_config(executable_path: "/bin/no") do |inv|
+      with_config(bundle: { cogy_executable: "/bin/no" }) do |inv|
         expected = {
           "executable" => "/bin/no",
           "description" => "Print a foo",
