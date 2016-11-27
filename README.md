@@ -148,6 +148,33 @@ end
 
 For more examples see the [test commands](https://github.com/skroutz/cogy/tree/master/test/dummy/cogy).
 
+### Returning JSON to Cog
+
+You can return a JSON response to Cog like this:
+
+```ruby
+on "foo", desc: "Just a JSON" do
+  { a: 3 }
+end
+```
+
+This would return the following response to Cog:
+
+```
+COG_TEMPLATE: foo
+JSON
+{"a":3}
+```
+
+To customize the Cog template to be used, pass the `template` option:
+
+```ruby
+on "foo", desc: "Just a JSON", template: "other" do
+  { a: 3 }
+end
+```
+
+Info on how Cog handles JSON can be found in the [official documentation](https://cog-book.operable.io/#_returning_data_from_cog).
 
 ## Configuration
 
