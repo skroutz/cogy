@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add support for defining Cog Templates ([#3](https://github.com/skroutz/cogy/issues/3))
+- Add support for returning JSON to Cog ([#3](https://github.com/skroutz/cogy/issues/3))
 - Arguments can also be accessed by their names ([#53](https://github.com/skroutz/cogy/issues/53))
 
 ### Changed
