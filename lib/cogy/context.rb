@@ -46,7 +46,7 @@ module Cogy
 
     # Invokes the {Command}
     #
-    # @return [String] the result of the command. This is what will get printed
+    # @return [Object] the result of the command. This is what will get printed
     #   back to the user that invoked the command and is effectively the return
     #   value of the command body.
     def invoke

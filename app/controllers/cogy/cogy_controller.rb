@@ -22,8 +22,13 @@ module Cogy
 
       begin
         if (command = Cogy.commands[cmd])
-          context = Context.new(command, args, opts, user, cogy_env)
-          render text: context.invoke
+          result = Context.new(command, args, opts, user, cogy_env).invoke
+          if result.is_a?(Hash)
+            result = "COG_TEMPLATE: #{command.template || command.name}\n" \
+                     "JSON\n" \
+                     "#{result.to_json}"
+          end
+          render text: result
         else
           render status: 404, text: "The command '#{cmd}' does not exist."
         end

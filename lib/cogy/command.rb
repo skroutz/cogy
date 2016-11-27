@@ -17,8 +17,11 @@ module Cogy
     # Attributes related to the bundle config in Cog
     attr_reader :args, :opts, :desc, :long_desc, :examples, :rules
 
+    # The Cog template that the command should use
+    attr_reader :template
+
     # See {Cogy.on}
-    def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil)
+    def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil, template: nil)
       @name = name.to_s
       @handler = handler
       @args = [args].flatten.map!(&:to_s)
@@ -27,6 +30,7 @@ module Cogy
       @long_desc = long_desc
       @examples = examples
       @rules = rules || ["allow"]
+      @template = template
 
       validate_opts
     end

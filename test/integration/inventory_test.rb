@@ -49,5 +49,19 @@ module Cogy
       get "/cogy/inventory"
       assert_equal "application/x-yaml", response.content_type
     end
+
+    def test_template
+      get "/cogy/inventory"
+
+      expected = <<TEMPLATE.strip
+**foo:** ~$results[0].name~
+
+~br~
+
+foo
+TEMPLATE
+
+      assert_equal expected, fetch_inventory["templates"]["pretty-command"]["body"]
+    end
   end
 end

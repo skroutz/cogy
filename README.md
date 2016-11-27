@@ -148,6 +148,75 @@ end
 
 For more examples see the [test commands](https://github.com/skroutz/cogy/tree/master/test/dummy/cogy).
 
+### Returning JSON to Cog
+
+You can return a JSON response to Cog like this:
+
+```ruby
+on "foo", desc: "Just a JSON" do
+  { a: 3 }
+end
+```
+
+This would return the following response to Cog:
+
+```
+COG_TEMPLATE: foo
+JSON
+{"a":3}
+```
+
+To customize the Cog template to be used, pass the `template` option:
+
+```ruby
+on "foo", desc: "Just a JSON", template: "other" do
+  { a: 3 }
+end
+```
+
+Info on how Cog handles JSON can be found in the [official documentation](https://cog-book.operable.io/#_returning_data_from_cog).
+
+### Templates
+
+Templates are defined in their own files under `templates/`. For example:
+
+```
+.
+├── README.rdoc
+├── <..>
+├── cogy
+│   ├── public_commands.rb <--- commands are defined in here
+│   ├── admin_commands.rb  <--- ...and here
+│   └── templates
+│       └── foo <--- a template named foo
+|── <...>
+```
+
+Given the following template:
+
+```
+# in cogy/templates/foo
+~ hello world ~
+```
+
+the resulting bundle config would look like this:
+
+```yaml
+---
+cog_bundle_version: 4
+name: foo
+description: The bundle you really need
+version: 0.0.1
+commands:
+  <...>
+templates:
+  foo:
+    body: |-
+      ~ hello world ~
+```
+
+Refer to the [Cog book](https://cog-book.operable.io/#_templates) for more on
+templates.
 
 ## Configuration
 

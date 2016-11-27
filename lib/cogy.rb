@@ -12,7 +12,7 @@ module Cogy
   @@commands = {}
   mattr_accessor :commands
 
-  # Configuration related to the Cog bundle. Used by {Cogy.bundle_config}
+  # Configuration related to the Cog bundle. Used in {Cogy.bundle_config}
   # in order to generate the bundle config YAML.
   #
   # @see https://cog-book.operable.io/#_the_config_file
@@ -38,6 +38,12 @@ module Cogy
     cogy_executable: "/usr/bin/cogy"
   }
   mattr_accessor :bundle
+
+  # The Cog templates. Used in {Cogy.bundle_config}.
+  #
+  # @see https://cog-book.operable.io/#_templates
+  @@templates = {}
+  mattr_accessor :templates
 
   # Paths where the files that define the commands will be searched in the
   # host application.
@@ -136,6 +142,8 @@ module Cogy
         config["commands"][name]["examples"] = cmd.examples
       end
     end
+
+    config["templates"] = templates if !templates.empty?
 
     config
   end
