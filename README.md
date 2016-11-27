@@ -150,7 +150,7 @@ For more examples see the [test commands](https://github.com/skroutz/cogy/tree/m
 
 ### Returning JSON to Cog
 
-You can return a JSON response to Cog like this:
+You can return JSON to Cog by just returning a `Hash`:
 
 ```ruby
 on "foo", desc: "Just a JSON" do
@@ -158,7 +158,7 @@ on "foo", desc: "Just a JSON" do
 end
 ```
 
-This would return the following response to Cog:
+The hash automatically gets converted to JSON by Cogy. The above command would return the following response to Cog:
 
 ```
 COG_TEMPLATE: foo
@@ -166,10 +166,10 @@ JSON
 {"a":3}
 ```
 
-To customize the Cog template to be used, pass the `template` option:
+To customize the Cog [template](#Templates) to be used, pass the `template` option:
 
 ```ruby
-on "foo", desc: "Just a JSON", template: "other" do
+on "foo", desc: "Just a JSON", template: "bar" do
   { a: 3 }
 end
 ```
@@ -178,17 +178,18 @@ Info on how Cog handles JSON can be found in the [official documentation](https:
 
 ### Templates
 
-Templates are defined in their own files under `templates/`. For example:
+Templates are defined in their own files under `templates/` inside any of
+the [command load paths](#Configuration). For example:
 
 ```
+myapp $ tree
 .
 ├── README.rdoc
 ├── <..>
 ├── cogy
-│   ├── public_commands.rb <--- commands are defined in here
-│   ├── admin_commands.rb  <--- ...and here
+│   ├── some_commands.rb
 │   └── templates
-│       └── foo <--- a template named foo
+│       └── foo # <--- a template named 'foo'
 |── <...>
 ```
 
