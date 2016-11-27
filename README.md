@@ -182,7 +182,7 @@ Templates are defined in their own files under `templates/` inside any of
 the [command load paths](#Configuration). For example:
 
 ```
-myapp $ tree
+$ tree
 .
 ├── README.rdoc
 ├── <..>
