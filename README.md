@@ -337,6 +337,51 @@ is the following:
 It can be overriden in the application by creating a view in
 `app/views/cogy/error.text.erb`.
 
+## Deployment
+
+Cogy provides the `cogy:notify_cog` task for Capistrano. The following options
+need to be set:
+
+* `cogy_release_trigger_url`: This is the URL of the Cog Trigger that will
+  install the newly deployed bundle (ie. `!cogy:install`).
+* `cogy_endpoint`: Where the Cogy Engine is mounted at.
+  For example `http://myapp.com/cogy`.
+
+You can also configure the timeout value for the request to the Trigger by
+setting the `cogy_trigger_timeout` option (default: 7).
+
+The task can be found [here](https://github.com/skroutz/cogy/blob/master/lib/cogy/capistrano/cogy.rake).
+
+### Capistrano 2
+
+Add the following in `config/deploy.rb`:
+
+```ruby
+# in config/deploy.rb
+require "cogy/capistrano"
+
+set :cogy_release_trigger_url, "<TRIGGER-INVOCATION-URL>"
+set :cogy_endpoint, "<COGY-MOUNT-POINT>"
+```
+
+The `cogy:notify_cog` task is automatically hooked after `deploy:restart`.
+
+### Capistrano 3
+
+Add the following in your Capfile:
+
+```ruby
+require "cogy/capistrano"
+```
+
+The `cogy:notify_cog` task should be manually hooked after the task that
+restarts the application. For example:
+
+```ruby
+# in config/deploy.rb
+after "deploy:restart_app", "cogy:notify_cog"
+```
+
 ## Development
 
 Running the tests and RuboCop:
