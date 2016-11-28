@@ -2,6 +2,12 @@
 
 ## master (unreleased)
 
+## 0.2.1 (2016-11-28)
+
+### Changed
+
+- Capistrano 2 task is no longer hooked automatically ([65353](https://github.com/skroutz/cogy/commit/653532b1d673c64344f4e652044273224a2b005f))
+
 ## 0.2.0 (2016-11-28)
 
 ### Added
