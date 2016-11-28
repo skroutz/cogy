@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
     "and deploying commands from your application is a breeze."
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,lib}/**/*", "CHANGELOG.md", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2"
