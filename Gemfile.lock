@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cogy (0.1.1)
+    cogy (0.2.0)
       rails (~> 4.2)
 
 GEM
