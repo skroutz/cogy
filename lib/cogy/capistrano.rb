@@ -9,7 +9,5 @@ else
     _cset(:cogy_trigger_timeout)     { nil }
 
     load File.expand_path("../capistrano/cogy.rake", __FILE__)
-
-    after "deploy:restart", "cogy:notify_cog"
   end
 end

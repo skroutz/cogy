@@ -339,8 +339,12 @@ It can be overriden in the application by creating a view in
 
 ## Deployment
 
-Cogy provides the `cogy:notify_cog` task for Capistrano. The following options
-need to be set:
+Cogy provides the `cogy:notify_cog` task for Capistrano. This task should run
+*after* the application server is respawned/restarted, so that the new commands
+are picked up. In Capistrano 2 for example, it should run after
+`deploy:restart`.
+
+The following options need to be set:
 
 * `cogy_release_trigger_url`: This is the URL of the Cog Trigger that will
   install the newly deployed bundle (ie. `!cogy:install`).
@@ -362,9 +366,9 @@ require "cogy/capistrano"
 
 set :cogy_release_trigger_url, "<TRIGGER-INVOCATION-URL>"
 set :cogy_endpoint, "<COGY-MOUNT-POINT>"
-```
 
-The `cogy:notify_cog` task is automatically hooked after `deploy:restart`.
+after "deploy:restart", "cogy:notify_cog"
+```
 
 ### Capistrano 3
 
@@ -374,12 +378,15 @@ Add the following in your Capfile:
 require "cogy/capistrano"
 ```
 
-The `cogy:notify_cog` task should be manually hooked after the task that
-restarts the application. For example:
+Then configure the task and hook it:
 
 ```ruby
 # in config/deploy.rb
-after "deploy:restart_app", "cogy:notify_cog"
+
+set :cogy_release_trigger_url, "<TRIGGER-INVOCATION-URL>"
+set :cogy_endpoint, "<COGY-MOUNT-POINT>"
+
+after "<app-restart-task>", "cogy:notify_cog"
 ```
 
 ## Development
