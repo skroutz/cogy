@@ -126,8 +126,8 @@ Inside the block there are the following pre-defined helpers available:
   * arguments can also be accessed by their names as local variables
 * `opts`: a hash containing the options passed to the command
 * `handle`: the chat handle of the user who called the command
-* `env`: a hash containing the Cogy environment, that is, every environment variable
-  starting with 'COGY_' and set in the Relay
+* `env`: a hash containing the Relay environment as available in the cogy
+  bundle
 
 For instructions on defining your own helpers, see [Helpers](#helpers).
 
