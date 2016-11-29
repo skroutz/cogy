@@ -2,6 +2,17 @@
 
 ## master (unreleased)
 
+## 0.3.0 (2016-11-29)
+
+This release requires the [cogy-bundle](https://github.com/skroutz/cogy/issues/25)
+to be at version 0.3.0 or later.
+
+### Changed
+
+- The incoming request from the Relay is now a POST ([#25](https://github.com/skroutz/cogy/issues/25))
+- The complete Relay environment is now available as-is using the `env` helper
+  inside commands ([#26](https://github.com/skroutz/cogy/issues/26))
+
 ## 0.2.1 (2016-11-28)
 
 ### Changed
