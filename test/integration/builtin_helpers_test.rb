@@ -7,17 +7,17 @@ module Cogy
     setup { @routes = Engine.routes }
 
     def test_args_helper_overrides_predefined_helpers
-      get "/cogy/cmd/args_overrides/george", cog_argv_1: "hu", cog_argv_0: "haha"
+      post "/cogy/cmd/args_overrides/george", COG_ARGV_1: "hu", COG_ARGV_0: "haha"
       assert_equal "hahahu", response.body
     end
 
     def test_args_with_empty_arguments
-      get "/cogy/cmd/empty_args/george"
+      post "/cogy/cmd/empty_args/george"
       assert_equal "true", response.body
     end
 
     def test_args
-      get "/cogy/cmd/add/george", cog_argv_0: 1, cog_argv_1: 2
+      post "/cogy/cmd/add/george", COG_ARGV_0: 1, COG_ARGV_1: 2
       assert_equal "3", response.body
     end
   end

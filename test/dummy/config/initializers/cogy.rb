@@ -8,6 +8,6 @@ Cogy.configure do |c|
 
   c.command_load_paths = ["cogy"]
 
-  c.helper(:foo) { env["cogy_foo"] }
+  c.helper(:foo) { env["cog_foo"] }
   c.helper(:bar) { |text| text.titleize }
 end

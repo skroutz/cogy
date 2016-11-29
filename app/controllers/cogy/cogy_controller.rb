@@ -2,7 +2,7 @@ require_dependency "cogy/application_controller"
 
 module Cogy
   class CogyController < ApplicationController
-    # GET <mount_path>/cmd/:cmd/:user
+    # POST <mount_path>/cmd/:cmd/:user
     #
     # The command endpoint is the one that the cogy executable (see
     # https://github.com/skroutz/cogy-bundle hits. It executes the requested
@@ -12,17 +12,16 @@ module Cogy
     # See https://github.com/skroutz/cogy-bundle.
     def command
       cmd = params[:cmd]
-      args = request.query_parameters.select { |k, _| k.start_with?("cog_argv_") }
-                    .sort_by { |k, _| k.match(/\d+\z/)[0] }.to_h.values
-
-      opts = request.query_parameters.select { |k, _| k.start_with?("cog_opt_") }
-                    .transform_keys { |k| k.sub("cog_opt_", "") }
-      cogy_env = request.query_parameters.select { |k, _| k.start_with?("cogy_") }
+      args = params.select { |k, _| k.start_with?("COG_ARGV_") }
+                   .sort_by { |k, _| k.match(/\d+\z/)[0] }.to_h.values
+      opts = params.select { |k, _| k.start_with?("COG_OPT_") }
+                   .transform_keys { |k| k.sub("COG_OPT_", "").downcase }
       user = params[:user]
+      cog_env = request.request_parameters
 
       begin
         if (command = Cogy.commands[cmd])
-          result = Context.new(command, args, opts, user, cogy_env).invoke
+          result = Context.new(command, args, opts, user, cog_env).invoke
           if result.is_a?(Hash)
             result = "COG_TEMPLATE: #{command.template || command.name}\n" \
                      "JSON\n" \

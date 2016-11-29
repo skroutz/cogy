@@ -7,7 +7,7 @@ on "raiser", desc: "Raises an exception" do
 end
 
 on "print_env", desc: "Test cogy env access" do
-  env["cogy_foo"]
+  "#{env["foo"]} #{env["COG_FOO"]} #{env["NOEXIST"]} #{env["FOO"]}"
 end
 
 on "foohelper", desc: "" do
@@ -24,4 +24,10 @@ end
 
 on "args_order", args: [:a, :b, :c], desc: "" do
   args.join
+end
+
+on "test_opts_downcased",
+   opts: { a: { type: "string", required: false } },
+   desc: "" do
+  opts[:a]
 end

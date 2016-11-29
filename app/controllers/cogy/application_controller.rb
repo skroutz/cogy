@@ -1,5 +1,6 @@
 module Cogy
   class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
+    # @todo https://github.com/skroutz/cogy/issues/43
+    skip_before_action :verify_authenticity_token
   end
 end
