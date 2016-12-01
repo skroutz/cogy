@@ -1,37 +1,32 @@
 module Cogy
   # {Context} represents a particular invocation request of a {Command}
-  # performed by a user. It holds state like the command arguments, options etc.
+  # performed by a user. It holds state like the given arguments, options etc.
   # In other words, it provides the context in which a {Command} should be
   # invoked.
   #
-  # A {Context} essentially is an HTTP request performed by the `cogy:cogy`
-  # command (https://github.com/skroutz/cogy-bundle) on behalf of the user.
-  # You can think of it as the equivalent of the ActionPack's `Request` class.
+  # A {Context} essentially is an HTTP request performed by `cogy:cogy`
+  # (https://github.com/skroutz/cogy-bundle) on behalf of the user.
+  # You can think of it as the equivalent of the ActionPack's `Request` object.
   class Context
-    # @return [Command] the {Command} to be invoked by {Context#invoke}
+    # @return [Command] the {Command} to be invoked
     attr_reader :command
 
-    # @return [Array] The Cog command arguments as passed by the user who
-    #   invoked the command.
+    # @return [Array] the user-provided arguments
     #
     # @see https://cog-book.operable.io/#_arguments
     attr_reader :args
 
-    # @return [Hash] The Cog command options as provided by the user who
-    #   invoked the command
+    # @return [Hash] the user-provided options
     #
     # @see https://cog-book.operable.io/#_options
     attr_reader :opts
 
     # @return [String] The chat handle of the user who invoked the command
-    #
-    # @see https://cog-book.operable.io/#_general_metadata
     attr_reader :handle
 
-    # @return [Hash] The Cogy environment (ie. all environment variables in
-    # the Relay executable that start with 'COGY_')
+    # @return [Hash] the Cog environment of the Relay
     #
-    # @see https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy
+    # @see https://cog-book.operable.io/#_command_environment_variables
     attr_reader :env
 
     def initialize(command, args, opts, handle, env)
@@ -44,7 +39,7 @@ module Cogy
       define_arg_helpers
     end
 
-    # Invokes the {Command}
+    # Invokes the command pointed by {#command}.
     #
     # @return [Object] the result of the command. This is what will get printed
     #   back to the user that invoked the command and is effectively the return

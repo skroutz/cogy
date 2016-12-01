@@ -1,10 +1,10 @@
 module Cogy
-  # {Command} represents a user-defined registered command that can be used
-  # in the chat. It contains the Cog-related stuff (ie. everything that
-  # needs to be in the bundle config) and a block that will run and return
-  # the result (ie. handler).
+  # {Command} represents a user-defined, registered command that can be used
+  # in the chat. It contains information about Cog-related stuff (ie. everything that
+  # needs to be in the bundle config like args & opts) and the block that will
+  # return the result ({Command#handler}).
   class Command
-    # The name of the command. Also used in {Cogy.bundle_config}.
+    # The name of the command.
     #
     # @return [String]
     attr_reader :name
@@ -14,13 +14,19 @@ module Cogy
     # @return [Proc]
     attr_reader :handler
 
-    # Attributes related to the bundle config in Cog
+    # Attributes related to the bundle config
+    #
+    # @see Cogy.bundle_config
     attr_reader :args, :opts, :desc, :long_desc, :examples, :rules
 
-    # The Cog template that the command should use
+    # The Cog template that the command should use.
+    #
+    # @see Cogy.bundle_config
     attr_reader :template
 
-    # See {Cogy.on}
+    # @raise [ArgumentError] if `opts` are invalid
+    #
+    # @see Cogy.on
     def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil, template: nil)
       @name = name.to_s
       @handler = handler

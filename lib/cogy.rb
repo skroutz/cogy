@@ -4,16 +4,13 @@ require "cogy/context"
 
 module Cogy
   # The supported Cog bundle config version.
-  #
-  # @see http://docs.operable.io/docs/bundle-configs
   COG_BUNDLE_VERSION = 4
 
   # Holds all the registered {Command} objects. Not to be messed with.
   @@commands = {}
   mattr_accessor :commands
 
-  # Configuration related to the Cog bundle. Used in {Cogy.bundle_config}
-  # in order to generate the bundle config YAML.
+  # Configuration related to the Cog bundle. Used in {Cogy.bundle_config}.
   #
   # @see https://cog-book.operable.io/#_the_config_file
   @@bundle = {
@@ -40,8 +37,6 @@ module Cogy
   mattr_accessor :bundle
 
   # The Cog templates. Used in {Cogy.bundle_config}.
-  #
-  # @see https://cog-book.operable.io/#_templates
   @@templates = {}
   mattr_accessor :templates
 
@@ -50,12 +45,13 @@ module Cogy
   @@command_load_paths = ["cogy"]
   mattr_accessor :command_load_paths
 
-  # Registers a command to Cogy. All the options passed are used solely for
-  # generating the bundle config (ie. {Cogy.bundle_config}). The passed block
-  # is the code that will get executed when the command is invoked.
+  # Initializes a new {Command} and registers it. All the options passed are
+  # used when generating the bundle config in {Cogy.bundle_config}.
   #
-  # The last value of the block is what will get printed as the result of the
-  # command. It should be a string. If you want to return early in a point
+  # The given block is the code that will execute when the command is invoked.
+  #
+  # The last value of the block is what will get returned back to Cog
+  # It should be a string. If you want to return early in a point
   # inside the block, use `next` instead of `return`.
   #
   # Inside the command block, there are the public attributes of {Context}
@@ -102,7 +98,7 @@ module Cogy
 
   # Generates the bundle config
   #
-  # @return [Hash]
+  # @return [Hash] the bundle config
   def self.bundle_config
     version = if bundle[:version].respond_to?(:call)
                 bundle[:version].call
@@ -166,9 +162,6 @@ module Cogy
   #
   # @return [void]
   #
-  # @note User helpers also have access to the default helpers like `user`, `env`
-  #   etc.
-  #
   # @example
   #   Cogy.configure do |c|
   #     helper(:user) { User.find_by(slack_handle: handle) }
@@ -176,6 +169,9 @@ module Cogy
   #     # a helper that accepts an argument
   #     helper(:format) { |answer| answer.titleize }
   #   end
+  #
+  # @note User helpers also have access to the default helpers like `user`, `env`
+  #   etc.
   def self.helper(name, &blk)
     Context.class_eval { define_method(name, blk) }
   end
