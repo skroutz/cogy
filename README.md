@@ -11,18 +11,19 @@ See the API documentation [here](http://www.rubydoc.info/github/skroutz/cogy).
 
 Refer to the [Changelog](CHANGELOG.md) to see what's changed between releases.
 
-## Status
+## Features
 
-Cogy is still in public alpha.
+- Write commands inside your Rails app, using Ruby (see [_Usage_](#usage))
+- The bundle config is generated automatically
+- Commands are installed _automatically_ when you deploy (see [_Deployment_](#deployment))
+- Support for JSON responses and Templates (see [_Returning JSON to COG_](#returning-json-to-cog))
+- Customizable error templates (see [_Error template_](#error-template))
 
-While we use it in production, it's still under heavy development.
-This means that there are a few rough edges and some important bits are missing.
-
-However we'd love any [feedback, suggestions or ideas](https://github.com/skroutz/cogy/issues/new).
+...and more on the way!
 
 ## Why
 
-Creating a ChatOps command that talks with a Rails app typically involves writing
+Creating ChatOps commands that talk with a Rails app typically involves writing
 a route, maybe a controller, an action and code to handle the command arguments
 and options.
 
@@ -30,9 +31,9 @@ This is a tedious and repetitive task and involves a lot of boilerplate
 code each time someone wants to add a new command.
 
 Cogy is an opinionated library that provides a way to get rid of all the
-repetitive work.
+boilerplate stuff so you can focus on just the actual commands.
 
-Writing a new command and deploying it is as simple as:
+Deploying a new command is as simple as writing:
 
 ```ruby
 # in cogy/my_commands.rb
@@ -42,15 +43,15 @@ on "foo", desc: "Echo a foo bar back at you!" do
 end
 ```
 
-...and deploying! After a second or so, the command is ready to be used.
+...and deploying!
 
 ## How it works
 
 Cogy is essentially three things:
 
 1. An opinionated way to write, manage & ship commands: All Cogy commands are
-   defined in your Rails app and end up invoking a [single executable](https://github.com/skroutz/cogy-bundle/blob/master/commands/cogy) within the
-   Relay. Cogy also provides bundle versioning and dynamically generates the
+   defined in your Rails app and end up invoking a single executable within the
+   Relay (see below). Cogy also provides bundle versioning and dynamically generates the
    installable bundle config, which is also served by your Rails application
    and consumed by the [`cogy:install`](https://github.com/skroutz/cogy-bundle)
    command that installs the new Cogy-generated bundle when you deploy your
@@ -68,14 +69,22 @@ Cogy is essentially three things:
    to the user. It also contains the `cogy:install` command for automating
    the task of installing the new bundle when a command is added/modified.
 
-Take a look at the relevant [diagrams](diagrams/) for an illustration of how
-Cogy works.
+Take a look at the relevant [diagrams](diagrams/) for a detailed illustration.
 
 ## Requirements
 
-* [cogy bundle](https://github.com/skroutz/cogy-bundle)
+* [cogy bundle v0.3.0+](https://github.com/skroutz/cogy-bundle)
 * Ruby 2.1+
-* Tested with Rails 4.2
+* Rails 4.2 (support for Rails 5 is on the way)
+
+## Status
+
+Cogy is still in public alpha.
+
+While we use it in production, it's still under heavy development.
+This means that there are a few rough edges and things change fast.
+
+However we'd love any [feedback, suggestions or ideas](https://github.com/skroutz/cogy/issues/new).
 
 ## Install
 
@@ -120,7 +129,7 @@ on "add", args: [:a, :b], desc: "Add two numbers" do
 end
 ```
 
-Inside the block there are the following pre-defined helpers available:
+Inside the block there are the following helpers available:
 
 * `args`: an array containing the arguments passed to the command
   * arguments can also be accessed by their names as local variables
@@ -158,7 +167,8 @@ on "foo", desc: "Just a JSON" do
 end
 ```
 
-The hash automatically gets converted to JSON by Cogy. The above command would return the following response to Cog:
+The hash is automatically converted to JSON. The above command would return
+the following response to Cog:
 
 ```
 COG_TEMPLATE: foo
@@ -166,7 +176,8 @@ JSON
 {"a":3}
 ```
 
-To customize the Cog [template](#Templates) to be used, pass the `template` option:
+To customize the Cog [template](#Templates) to be used, use the `template`
+option:
 
 ```ruby
 on "foo", desc: "Just a JSON", template: "bar" do
@@ -232,7 +243,7 @@ Cogy.configure do |config|
   config.bundle = {
     # The bundle name.
     #
-    # Default: "cogy"
+    # Default: "myapp"
     name: "myapp",
 
     # The bundle description
@@ -281,11 +292,12 @@ $ bin/rails g cogy:config
 
 ### Helpers
 
-It is possible to define helpers that can be used throughout commands. They
-can be defined during configuration and can accept a variable number of
-arguments, or no arguments at all.
+It is possible to define helpers that can be used throughout commands. This is
+useful for DRYing repetitive code.
 
-Let's define a helper that fetches a `Shops` address of the user who called the
+They are defined during configuration and may also accept arguments.
+
+Let's define a helper that fetches the `address` of a `Shop` record:
 command:
 
 ```ruby
@@ -297,7 +309,7 @@ end
 *(Note that custom helpers also have access to the default helpers like
 `handle`, `args` etc.)*
 
-Then we could have a command like this:
+Then we could have a command that makes use of the helper:
 
 ```ruby
 on "shop_address", desc: "Returns the user's Shop address" do
@@ -305,7 +317,7 @@ on "shop_address", desc: "Returns the user's Shop address" do
 end
 ```
 
-We can also define helpers that accept arguments:
+Helpers may also accept arguments:
 
 ```ruby
 Cogy.configure do |c|
@@ -313,7 +325,7 @@ Cogy.configure do |c|
 end
 ```
 
-Then in our command we could call it like so:
+This helper could be called like so:
 
 ```ruby
 on "foo", desc: "Nothing special" do
@@ -321,11 +333,12 @@ on "foo", desc: "Nothing special" do
 end
 ```
 
-Rails' URL helpers are also available inside the commands.
+Rails URL helpers (ie. `foo_url`) are also available inside the commands.
 
 ## Error template
 
-When a command throws an error the [default error template](https://github.com/skroutz/cogy/blob/master/app/views/cogy/error.text.erb) is rendered, which
+When a command throws an error the
+[default error template](https://github.com/skroutz/cogy/blob/master/app/views/cogy/error.text.erb) is rendered, which
 is the following:
 
     @<%= @user %>: Command '<%= @cmd %>' returned an error.
@@ -337,12 +350,39 @@ is the following:
 It can be overriden in the application by creating a view in
 `app/views/cogy/error.text.erb`.
 
+## Installation Trigger
+
+In order to automate the process of installing the new bundle versions
+(eg. after a new command is added), you must create a [Cog Trigger](https://cog-book.operable.io/#_developing_a_trigger)
+that will perform the installation, which will be called when you deploy your
+app.
+
+The trigger will look this:
+
+```shell
+$ cogctl triggers
+Name               ID                                    Enabled  Pipeline
+ReleaseUrlTrigger  d10df83b-a737-4fc4-8d9b-bf9627412d0a  true     cogy:install --url $body.url > chat://#general
+```
+
+It essentially uses the [cogy bundle](https://github.com/skroutz/cogy-bundle)
+and installs the bundle config which is served by your application
+(ie. http://your-app.com/cogy/inventory).
+
+See [_Deployment_](#deployment) on information about how this trigger is
+invoked.
+
 ## Deployment
 
-Cogy provides the `cogy:notify_cog` task for Capistrano. This task should run
-*after* the application server is respawned/restarted, so that the new commands
-are picked up. In Capistrano 2 for example, it should run after
-`deploy:restart`.
+Cogy provides integration with Capistrano 2 and 3.
+
+There is the just one task, `cogy:notify_cog`, which just executes the
+[installation Trigger](#installation-trigger).
+
+The task should run
+*after* the application server is restarted, so that the new commands
+are picked up and served by the Inventory endpoint. In Capistrano 2 for
+example, it should run after the built-in `deploy:restart` task.
 
 The following options need to be set:
 
@@ -354,7 +394,7 @@ The following options need to be set:
 You can also configure the timeout value for the request to the Trigger by
 setting the `cogy_trigger_timeout` option (default: 7).
 
-The task can be found [here](https://github.com/skroutz/cogy/blob/master/lib/cogy/capistrano/cogy.rake).
+The code of the task can be found [here](https://github.com/skroutz/cogy/blob/master/lib/cogy/capistrano/cogy.rake).
 
 ### Capistrano 2
 
