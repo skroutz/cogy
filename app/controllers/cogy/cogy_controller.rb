@@ -1,7 +1,6 @@
 require_dependency "cogy/application_controller"
 
 module Cogy
-  # Communication point of the cogy bundle and the host application.
   class CogyController < ApplicationController
     # POST /<mount_path>/cmd/:cmd/:user
     #

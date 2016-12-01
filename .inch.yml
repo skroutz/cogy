@@ -1,0 +1,4 @@
+files:
+  excluded:
+    - app/controllers/cogy/application_controller.rb
+    - lib/generators/**/*
