@@ -18,7 +18,7 @@ module Cogy
   # @see https://cog-book.operable.io/#_the_config_file
   @@bundle = {
     # The bundle name
-    name: "cogy",
+    name: "myapp",
 
     # The bundle description
     description: "Cog commands generated from Cogy",
