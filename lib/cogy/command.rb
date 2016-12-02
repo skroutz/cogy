@@ -10,8 +10,26 @@ module Cogy
     # @return [Proc]
     attr_reader :handler
 
-    # Attribute related to the bundle config
-    attr_reader :args, :opts, :desc, :long_desc, :examples, :rules, :template
+    # @return [Array]
+    attr_reader :args
+
+    # @return [Hash{Symbol=>Hash}]
+    attr_reader :opts
+
+    # @return [String]
+    attr_reader :desc
+
+    # @return [String]
+    attr_reader :long_desc
+
+    # @return [String]
+    attr_reader :examples
+
+    # @return [Array]
+    attr_reader :rules
+
+    # @return [String]
+    attr_reader :template
 
     # This is typically used via {Cogy.on} which also registers the newly
     # created {Command}.
@@ -34,7 +52,8 @@ module Cogy
     # @raise [ArgumentError] if {#opts} are invalid
     #
     # @see Cogy.on
-    def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil, template: nil)
+    def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil,
+                   examples: nil, rules: nil, template: nil)
       @name = name.to_s
       @handler = handler
       @args = [args].flatten.map!(&:to_s)
