@@ -1,6 +1,10 @@
 require_dependency "cogy/application_controller"
 
 module Cogy
+  # This is the entry point to the host application.
+  #
+  # All Cogy-command invocations of the users end up being served by this
+  # controller ({#command}).
   class CogyController < ApplicationController
     # POST /<mount_path>/cmd/:cmd/:user
     #

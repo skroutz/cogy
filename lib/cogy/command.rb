@@ -4,27 +4,34 @@ module Cogy
   # needs to be in the bundle config like args & opts) and the block that will
   # return the result ({Command#handler}).
   class Command
-    # The name of the command.
-    #
     # @return [String]
     attr_reader :name
 
-    # The code that will run when the command is invoked
-    #
     # @return [Proc]
     attr_reader :handler
 
-    # Attributes related to the bundle config
-    #
-    # @see Cogy.bundle_config
-    attr_reader :args, :opts, :desc, :long_desc, :examples, :rules
+    # Attribute related to the bundle-config
+    attr_reader :args, :opts, :desc, :long_desc, :examples, :rules, :template
 
-    # The Cog template that the command should use.
+    # This is typically used via {Cogy.on} which also registers the newly
+    # created {Command}.
     #
-    # @see Cogy.bundle_config
-    attr_reader :template
-
-    # @raise [ArgumentError] if `opts` are invalid
+    # @param name      [String, Symbol] the name of the command. This is how the
+    #   command will be invoked in the chat.
+    #
+    # @param handler   [Proc] the code that will run when the command is invoked
+    #
+    # @param args      [Array<Symbol, String>, Symbol, String] the arguments
+    #   accepted by the command
+    #
+    # @param opts      [Hash{Symbol=>Hash}] the options accepted by the command
+    # @param desc      [String] the description
+    # @param long_desc [String] the long description
+    # @param examples  [String] usage examples of the command
+    # @param rules     [Array] the command rules
+    # @param template  [String] the name of the template to use
+    #
+    # @raise [ArgumentError] if {#opts} are invalid
     #
     # @see Cogy.on
     def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil, examples: nil, rules: nil, template: nil)

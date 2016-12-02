@@ -49,26 +49,19 @@ module Cogy
   # used when generating the bundle config in {Cogy.bundle_config}.
   #
   # The given block is the code that will execute when the command is invoked.
+  # The return value of that block is what will get returned as a result
+  # back to Cog.
   #
-  # The last value of the block is what will get returned back to Cog
-  # It should be a string. If you want to return early in a point
-  # inside the block, use `next` instead of `return`.
-  #
-  # Inside the command block, there are the public attributes of {Context}
-  # available.
+  # Inside the command block the public attributes of {Context} are
+  # available in addition to any user-defined handlers.
   #
   # @param cmd_name [String, Symbol] the name of the command. This is how the
   #   command will be invoked in the chat.
-  # @param [Hash] opts the options to create the command with. All these options
+  # @param opts [Hash] the options to create the command with. All these options
   #   are used solely for generating the bundle config for Cog, thus they map
   #   directly to Cog's bundle config format.
   #   See https://cog-book.operable.io/#_the_config_file for more information.
-  # @option opts [Array<Symbol, String>, Symbol, String] :args ([])
-  # @option opts [Hash{Symbol=>Hash}] :opts ({})
-  # @option opts [String] :desc required
-  # @option opts [String] :long_desc (nil)
-  # @option opts [String] :examples (nil)
-  # @option opts [Array] :rules (["allow"])
+  #   For documentation on what's supported right now see {Command#initialize}.
   #
   # @example
   #   Cogy.on "calc",
@@ -86,11 +79,10 @@ module Cogy
   #     "Hello #{user}, the answer is: #{result}"
   #   end
   #
-  # @return [void]
+  # @return [Command] the created command
   #
-  # @note If you want to return early in a point inside a command block,
-  #   `next` should be used instead of `return`, due to the way Proc objects
-  #   work in Ruby.
+  # @note to return early inside a command block, `next` should be used instead
+  #   of `return` due to the way Proc objects work in Ruby.
   def self.on(cmd_name, opts = {}, &handler)
     cmd = Command.new(cmd_name, handler, opts)
     cmd.register!
@@ -157,8 +149,8 @@ module Cogy
 
   # Defines a user helper method that can be used throughout commands.
   #
-  # @param [Symbol] name the name of the helper
-  # @param [Proc] blk the helper body
+  # @param name [Symbol] the name of the helper
+  # @param blk [Proc] the helper body
   #
   # @return [void]
   #

@@ -8,27 +8,32 @@ module Cogy
   # (https://github.com/skroutz/cogy-bundle) on behalf of the user.
   # You can think of it as the equivalent of the ActionPack's `Request` object.
   class Context
-    # @return [Command] the {Command} to be invoked
+    # @return [Command]
     attr_reader :command
 
-    # @return [Array] the user-provided arguments
-    #
-    # @see https://cog-book.operable.io/#_arguments
+    # @return [Array]
     attr_reader :args
 
-    # @return [Hash] the user-provided options
-    #
-    # @see https://cog-book.operable.io/#_options
+    # @return [Hash]
     attr_reader :opts
 
-    # @return [String] The chat handle of the user who invoked the command
+    # @return [String]
     attr_reader :handle
 
-    # @return [Hash] the Cog environment of the Relay
-    #
-    # @see https://cog-book.operable.io/#_command_environment_variables
+    # @return [Hash]
     attr_reader :env
 
+    # @param command [Command] the {Command} to be invoked
+    # @param args [Array] the arguments as provided by the user
+    # @param opts [Hash] the options as provided by the user
+    # @param handle [String] the chat handle of the user
+    # @param env [Hash] the Cog Relay environment
+    #
+    # @see https://cog-book.operable.io/#_arguments
+    # @see https://cog-book.operable.io/#_options
+    # @see https://cog-book.operable.io/#_command_environment_variables
+    #
+    # @note By 'user' we refer to the user who invoked the command in chat.
     def initialize(command, args, opts, handle, env)
       @command = command
       @args = args
