@@ -10,7 +10,7 @@ module Cogy
     # @return [Proc]
     attr_reader :handler
 
-    # Attribute related to the bundle-config
+    # Attribute related to the bundle config
     attr_reader :args, :opts, :desc, :long_desc, :examples, :rules, :template
 
     # This is typically used via {Cogy.on} which also registers the newly
