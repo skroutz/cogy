@@ -2,6 +2,15 @@
 
 ## master (unreleased)
 
+## 0.4.0 (2016-12-05)
+
+This release requires the [cogy-bundle](https://github.com/skroutz/cogy-bundle)
+to be at version 0.4.0 or later.
+
+### Changed
+
+- The 'user' parameter no longer exists in the incoming request path ([#60](https://github.com/skroutz/cogy/issues/60))
+
 ## 0.3.0 (2016-11-29)
 
 This release requires the [cogy-bundle](https://github.com/skroutz/cogy-bundle)
