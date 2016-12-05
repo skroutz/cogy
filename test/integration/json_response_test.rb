@@ -7,7 +7,7 @@ module Cogy
     setup { @routes = Engine.routes }
 
     def test_json_output_and_default_template
-      post "/cogy/cmd/simple_json/george"
+      cmd :simple_json
 
       expected = "COG_TEMPLATE: simple_json\n" \
                  "JSON\n" \
@@ -17,7 +17,7 @@ module Cogy
     end
 
     def test_custom_template
-      post "/cogy/cmd/custom_template/hyu"
+      cmd :custom_template
 
       expected = "COG_TEMPLATE: foo\n" \
                  "JSON\n" \

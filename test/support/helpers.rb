@@ -1,6 +1,10 @@
 require "active_support/test_case"
 
 class ActiveSupport::TestCase
+  def cmd(name, env={}, as="someone")
+    post "/cogy/cmd/#{name}/#{as}", env
+  end
+
   def fetch_inventory
     get "/cogy/inventory"
     YAML.load(response.body)
