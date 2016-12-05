@@ -2,7 +2,7 @@ require "active_support/test_case"
 
 class ActiveSupport::TestCase
   def cmd(name, env={}, as="someone")
-    post "/cogy/cmd/#{name}/#{as}", env
+    post "/cogy/cmd/#{name}", env.merge("COG_CHAT_HANDLE" => as)
   end
 
   def fetch_inventory

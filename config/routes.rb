@@ -1,4 +1,4 @@
 Cogy::Engine.routes.draw do
-  post "cmd/:cmd/:user" => "cogy#command"
+  post "cmd/:cmd" => "cogy#command"
   get "inventory" => "cogy#inventory"
 end

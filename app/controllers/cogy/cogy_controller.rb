@@ -6,7 +6,7 @@ module Cogy
   # All Cogy-command invocations of the users end up being served by this
   # controller ({#command}).
   class CogyController < ApplicationController
-    # POST /<mount_path>/cmd/:cmd/:user
+    # POST /<mount_path>/cmd/:cmd
     #
     # Executes the requested {Command} and returns the result.
     def command
@@ -15,7 +15,7 @@ module Cogy
                    .sort_by { |k, _| k.match(/\d+\z/)[0] }.to_h.values
       opts = params.select { |k, _| k.start_with?("COG_OPT_") }
                    .transform_keys { |k| k.sub("COG_OPT_", "").downcase }
-      user = params[:user]
+      user = params["COG_CHAT_HANDLE"]
       cog_env = request.request_parameters
 
       begin
