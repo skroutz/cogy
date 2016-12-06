@@ -189,7 +189,7 @@ Info on how Cog handles JSON can be found in the [official documentation](https:
 
 ### Templates
 
-Templates are defined in their own files under `templates/` inside any of
+[Templates](https://cog-book.operable.io/#_templates) are defined in their own files under `templates/` inside any of
 the [command load paths](#Configuration). For example:
 
 ```
