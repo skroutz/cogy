@@ -350,27 +350,20 @@ is the following:
 It can be overriden in the application by creating a view in
 `app/views/cogy/error.text.erb`.
 
-## Installation Trigger
+## Testing commands
 
-In order to automate the process of installing the new bundle versions
-(eg. after a new command is added), you must create a [Cog Trigger](https://cog-book.operable.io/#_developing_a_trigger)
-that will perform the installation, which will be called when you deploy your
-app.
-
-The trigger will look this:
+We don't yet provide means to write tests for the commands, but you can easily
+test them by executing a request to your development server:
 
 ```shell
-$ cogctl triggers
-Name               ID                                    Enabled  Pipeline
-ReleaseUrlTrigger  d10df83b-a737-4fc4-8d9b-bf9627412d0a  true     cogy:install --url $body.url > chat://#general
+$ curl -XPOST --data "COG_ARGV_0=foo" http://localhost:3000/cogy/foo
 ```
 
-It essentially uses the [cogy bundle](https://github.com/skroutz/cogy-bundle)
-and installs the bundle config which is served by your application
-(ie. http://your-app.com/cogy/inventory).
+In the request body you may pass the complete or any part of the
+[Cog environment](https://cog-book.operable.io/#_command_environment_variables) you need.
 
-See [_Deployment_](#deployment) on information about how this trigger is
-invoked.
+This is essentially what the [cogy executable](https://github.com/skroutz/cogy-bundle)
+also does.
 
 ## Deployment
 
@@ -428,6 +421,28 @@ set :cogy_endpoint, "<COGY-MOUNT-POINT>"
 
 after "<app-restart-task>", "cogy:notify_cog"
 ```
+
+### Installation Trigger
+
+In order to automate the process of installing the new bundle versions
+(eg. after a new command is added), you must create a [Cog Trigger](https://cog-book.operable.io/#_developing_a_trigger)
+that will perform the installation, which will be called when you deploy your
+app.
+
+The trigger will look this:
+
+```shell
+$ cogctl triggers
+Name               ID                                    Enabled  Pipeline
+ReleaseUrlTrigger  d10df83b-a737-4fc4-8d9b-bf9627412d0a  true     cogy:install --url $body.url > chat://#general
+```
+
+It essentially uses the [cogy bundle](https://github.com/skroutz/cogy-bundle)
+and installs the bundle config which is served by your application
+(ie. http://your-app.com/cogy/inventory).
+
+See [_Deployment_](#deployment) on information about how this trigger is
+invoked.
 
 ## Development
 
