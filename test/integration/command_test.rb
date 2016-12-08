@@ -53,5 +53,17 @@ module Cogy
       cmd :test_opts_downcased, COG_OPT_A: "foo"
       assert_equal "foo", response.body
     end
+
+    def test_list_opts
+      cmd :test_list_opts,
+          COG_OPT_FLAVOR_0: "foo", COG_OPT_FLAVOR_1: "baz",
+          COG_OPT_FOO_0: "1", COG_OPT_FOO_1: "2"
+
+      puts response.body
+      #actual   = JSON.parse(response.body)
+      #expected = { "flavor" => ["foo", "baz"], "foo" => [1, 2] }
+
+      #assert_equal actual, expected
+    end
   end
 end

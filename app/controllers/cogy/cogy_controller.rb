@@ -13,8 +13,7 @@ module Cogy
       cmd = params[:cmd]
       args = params.select { |k, _| k.start_with?("COG_ARGV_") }
                    .sort_by { |k, _| k.match(/\d+\z/)[0] }.to_h.values
-      opts = params.select { |k, _| k.start_with?("COG_OPT_") }
-                   .transform_keys { |k| k.sub("COG_OPT_", "").downcase }
+      opts = parse_opts
       user = params["COG_CHAT_HANDLE"]
       cog_env = request.request_parameters
 
@@ -48,6 +47,15 @@ module Cogy
     # It is typically hit by `cogy:install` (https://github.com/skroutz/cogy-bundle).
     def inventory
       render text: Cogy.bundle_config.to_yaml, content_type: "application/x-yaml"
+    end
+
+    private
+
+    def parse_opts
+      opts = params.select { |k, _| k.start_with?("COG_OPT_") }
+            .transform_keys { |k| k.sub("COG_OPT_", "").downcase }
+            .tap do |h|
+      end
     end
   end
 end

@@ -31,3 +31,7 @@ on "test_opts_downcased",
    desc: "" do
   opts[:a]
 end
+
+on "test_list_opts", desc: "", opts: { flavor: { type: "list", required: false } } do
+  opts.keys + opts.values
+end
