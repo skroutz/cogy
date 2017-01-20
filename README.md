@@ -13,13 +13,13 @@ Refer to the [Changelog](CHANGELOG.md) to see what's changed between releases.
 
 ## Features
 
-- Write commands inside your Rails app, using Ruby (see [_Usage_](#usage))
-- The bundle config is generated automatically
+- Define commands from your Rails app (see [_Usage_](#usage))
+- Bundle config is generated automatically
 - Commands are installed _automatically_ when you deploy (see [_Deployment_](#deployment))
-- Support for JSON responses and Templates (see [_Returning JSON to COG_](#returning-json-to-cog))
-- Customizable error templates (see [_Error template_](#error-template))
+- Supports JSON responses and Cog Templates (see [_Returning JSON to COG_](#returning-json-to-cog))
+- Customizable error template (see [_Error template_](#error-template))
 
-...and more on the way!
+...and [more on the way](https://github.com/skroutz/cogy/issues?q=is%3Aopen+is%3Aissue+label%3Afeature)!
 
 ## Why
 
