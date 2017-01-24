@@ -2,7 +2,6 @@
 
 [![Build Status](https://api.travis-ci.org/skroutz/cogy.svg?branch=master)](https://travis-ci.org/skroutz/cogy)
 [![Gem Version](https://badge.fury.io/rb/cogy.svg)](https://badge.fury.io/rb/cogy)
-[![Inline docs](http://inch-ci.org/github/skroutz/cogy.svg)](http://inch-ci.org/github/skroutz/cogy)
 
 Cogy integrates [Cog](https://operable.io/) with Rails
 in a way that writing & deploying commands from your application is a breeze.
