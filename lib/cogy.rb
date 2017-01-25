@@ -45,6 +45,11 @@ module Cogy
   @@command_load_paths = ["cogy"]
   mattr_accessor :command_load_paths
 
+  # The endpoint where the Cogy engine is reachable at.
+  # For example "http://www.example.com/cogy"
+  @@cogy_endpoint = nil
+  mattr_accessor :cogy_endpoint
+
   # Initializes a new {Command} and registers it. All the options passed are
   # used when generating the bundle config in {Cogy.bundle_config}.
   #
@@ -128,6 +133,12 @@ module Cogy
 
       if cmd.examples
         config["commands"][name]["examples"] = cmd.examples
+      end
+
+      if Cogy.cogy_endpoint
+        config["commands"][name]["env_vars"] = {
+          "COGY_BACKEND" => Cogy.cogy_endpoint
+        }
       end
     end
 

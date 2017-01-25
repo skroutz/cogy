@@ -32,7 +32,8 @@ module Cogy
         expected = {
           "executable" => "/bin/no",
           "description" => "Print a foo",
-          "rules" => ["allow"]
+          "rules" => ["allow"],
+          "env_vars" => { "COGY_BACKEND" => "http://www.example.com/cogy" }
         }
 
         assert_equal expected, inv["commands"]["say_foo"]
@@ -51,8 +52,6 @@ module Cogy
     end
 
     def test_template
-      get "/cogy/inventory"
-
       expected = <<TEMPLATE.strip
 **foo:** ~$results[0].name~
 

@@ -6,11 +6,11 @@ namespace :cogy do
     require "json"
 
     trigger_url = fetch(:cogy_release_trigger_url)
-    cogy_endpoint = fetch(:cogy_endpoint)
+    cogy_endpoint = Cogy.cogy_endpoint
 
     begin
       raise ":cogy_release_trigger_url must be set" if trigger_url.nil?
-      raise ":cogy_endpoint must be set" if cogy_endpoint.nil?
+      raise "Cogy.cogy_endpoint must be set" if cogy_endpoint.nil?
 
       Timeout.timeout(fetch(:cogy_trigger_timeout) || 7) do
         url = URI(trigger_url)

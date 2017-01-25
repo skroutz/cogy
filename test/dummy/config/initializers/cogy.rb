@@ -7,6 +7,7 @@ Cogy.configure do |c|
   }
 
   c.command_load_paths = ["cogy"]
+  c.cogy_endpoint = "http://www.example.com/cogy"
 
   c.helper(:foo) { env["cog_foo"] }
   c.helper(:bar) { |text| text.titleize }

@@ -271,6 +271,10 @@ Cogy.configure do |config|
 
     # The path in the Relay where the cogy command executable is located.
     cogy_executable: "/cogcmd/cogy"
+
+    # The endpoint where Cogy is reachable at. This depends on where you've
+    # mounted the Cogy engine at.
+    cogy_endpoint: "http://www.example.com/cogy"
   }
 
   # Paths in your application where the files that define the commands live in.
@@ -378,10 +382,9 @@ example, it should run after the built-in `deploy:restart` task.
 
 The following options need to be set:
 
+* `Cogy.cogy_endpoint`: See [*Configuration*](#Configuration).
 * `cogy_release_trigger_url`: This is the URL of the Cog Trigger that will
   install the newly deployed bundle (ie. `!cogy:install`).
-* `cogy_endpoint`: Where the Cogy Engine is mounted at.
-  For example `http://myapp.com/cogy`.
 
 You can also configure the timeout value for the request to the Trigger by
 setting the `cogy_trigger_timeout` option (default: 7).
@@ -397,7 +400,6 @@ Add the following in `config/deploy.rb`:
 require "cogy/capistrano"
 
 set :cogy_release_trigger_url, "<TRIGGER-INVOCATION-URL>"
-set :cogy_endpoint, "<COGY-MOUNT-POINT>"
 
 after "deploy:restart", "cogy:notify_cog"
 ```
@@ -416,7 +418,6 @@ Then configure the task and hook it:
 # in config/deploy.rb
 
 set :cogy_release_trigger_url, "<TRIGGER-INVOCATION-URL>"
-set :cogy_endpoint, "<COGY-MOUNT-POINT>"
 
 after "<app-restart-task>", "cogy:notify_cog"
 ```

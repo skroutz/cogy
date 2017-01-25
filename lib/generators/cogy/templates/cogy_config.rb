@@ -8,4 +8,5 @@ Cogy.configure do |config|
   #}
   #
   #config.command_load_paths = ["cogy"]
+  #config.cogy_endpoint = "http://www.example.com/cogy"
 end
