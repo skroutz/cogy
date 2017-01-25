@@ -2,6 +2,16 @@
 
 ## master (unreleased)
 
+## 0.5.0 (2017-01-25)
+
+### Changed
+
+- The `COGY_BACKEND` env. variable is now shipped from Cogy, so you don't have
+  to set it in the Relays anymore ([#37](https://github.com/skroutz/cogy/issues/37)).
+  This has the side-effect of `Cogy.cogy_endpoint` configuration being *required*
+  if you use the Capistrano tasks, since they use it instead of the old,
+  Capistrano-specific setting.
+
 ## 0.4.0 (2016-12-05)
 
 This release requires the [cogy-bundle](https://github.com/skroutz/cogy-bundle)
