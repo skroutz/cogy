@@ -366,9 +366,9 @@ also does.
 
 ## Deployment
 
-Cogy provides integration with Capistrano 2 and 3.
+Cogy provides integration with Capistrano 2 & 3.
 
-There is the just one task, `cogy:notify_cog`, which just executes the
+There is just one task, `cogy:notify_cog`, which executes the
 [installation Trigger](#installation-trigger).
 
 The task should run
