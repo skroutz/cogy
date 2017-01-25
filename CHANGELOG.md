@@ -2,6 +2,13 @@
 
 ## master (unreleased)
 
+## 0.5.1 (2017-01-25)
+
+### Fixed
+
+- Revert back to the old behavior in Capistrano tasks. This means we still have
+  to provided the cogy endpoint in the Capistrano tasks. ([9f5bfb4](https://github.com/skroutz/cogy/commit/9f5bfb47aa5dc82390472693fab5822e3dbcb7fb))
+
 ## 0.5.0 (2017-01-25)
 
 ### Changed
