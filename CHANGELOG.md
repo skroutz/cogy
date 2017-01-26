@@ -4,10 +4,12 @@
 
 ## 0.5.1 (2017-01-25)
 
+This release fixes a regression introduced in 0.5.0
+
 ### Fixed
 
-- Revert back to the old behavior in Capistrano tasks. This means we still have
-  to provided the cogy endpoint in the Capistrano tasks. ([9f5bfb4](https://github.com/skroutz/cogy/commit/9f5bfb47aa5dc82390472693fab5822e3dbcb7fb))
+- Revert back to the old behavior in Capistrano tasks: we still have
+  to provide `:cogy_endpoint` in them. ([9f5bfb4](https://github.com/skroutz/cogy/commit/9f5bfb47aa5dc82390472693fab5822e3dbcb7fb))
 
 ## 0.5.0 (2017-01-25)
 
