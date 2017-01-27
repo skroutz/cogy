@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cogy (0.5.1)
+    cogy (0.5.2)
       rails (~> 4.2)
 
 GEM
@@ -143,6 +143,3 @@ DEPENDENCIES
   rubocop (~> 0.46.0)
   sqlite3
   yard
-
-BUNDLED WITH
-   1.14.2

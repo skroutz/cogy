@@ -2,6 +2,12 @@
 
 ## master (unreleased)
 
+## 0.5.2 (2017-01-25)
+
+This is a bug fix release due to Cog 1.0.0.beta2. It is backwards-compatible
+with previous Cog versions, but you'll get proper error reporting in Capistrano
+if you upgrade to Cog 1.0.0.beta2.
+
 ### Fixed
 
 - capistrano: Fix error handling with Cog 1.0.0.beta2 ([98bc5a5](https://github.com/skroutz/cogy/commit/98bc5a5))
