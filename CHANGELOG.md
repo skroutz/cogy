@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### Fixed
+
+- capistrano: Fix error handling with Cog 1.0.0.beta2 ([98bc5a5](https://github.com/skroutz/cogy/commit/98bc5a5))
+
 ## 0.5.1 (2017-01-25)
 
 This release fixes a regression introduced in 0.5.0
