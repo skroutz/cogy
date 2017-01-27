@@ -17,7 +17,7 @@ namespace :cogy do
         res = Net::HTTP.post_form(url, url: cogy_endpoint)
 
         if !res.is_a?(Net::HTTPSuccess)
-          error = JSON.parse(res.body)["errors"]["error_message"]
+          error = JSON.parse(res.body)["pipeline_output"]["error_message"]
           if error !~ /version has already been taken/
             puts "Error response (#{res.code}) from Cog trigger: #{error}"
           end

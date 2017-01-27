@@ -72,8 +72,9 @@ Take a look at the relevant [diagrams](diagrams/) for a detailed illustration.
 
 ## Requirements
 
-* [cogy bundle v0.4.0+](https://github.com/skroutz/cogy-bundle)
-* Ruby 2.1+
+* Cog 1.0.0.beta2 or later
+* [cogy bundle](https://github.com/skroutz/cogy-bundle) 0.4.0 or later
+* Ruby 2.1 or later
 * Rails 4.2 (support for Rails 5 is on the way)
 
 ## Status
