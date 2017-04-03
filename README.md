@@ -357,10 +357,17 @@ It can be overriden in the application by creating a view in
 ## Testing commands
 
 We don't yet provide means to write tests for the commands, but you can easily
-test them by executing a request to your development server:
+test them by executing a request to your development server. For example,
+if you mounted the engine like so:
+
+```ruby
+mount Cogy::Engine, at: "cogy"
+```
+
+you can test a `foo` command like this:
 
 ```shell
-$ curl -XPOST --data "COG_ARGV_0=foo" http://localhost:3000/cogy/foo
+$ curl -XPOST --data "COG_ARGV_0=foo" http://localhost:3000/cogy/cmd/foo
 ```
 
 In the request body you may pass the complete or any part of the
