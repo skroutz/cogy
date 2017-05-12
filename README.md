@@ -259,7 +259,7 @@ Cogy.configure do |config|
     # Default: "0.0.1"
     version: "0.0.1",
 
-    # if you used a callable object, it will be evaluated each time the inventory
+    # If you used a callable object, it will be evaluated each time the inventory
     # is called. This can be useful if you want the version to change
     # automatically.
     #
