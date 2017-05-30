@@ -11,7 +11,7 @@ module Cogy
     # Executes the requested {Command} and returns the result.
     def command
       cmd = params[:cmd]
-      args = params.select { |k, _| k.start_with?("COG_ARGV_") }
+      args = params.select { |k, _| k.start_with?("COG_ARGV_") }.to_unsafe_h
                    .sort_by { |k, _| k.match(/\d+\z/)[0] }.to_h.values
       opts = params.select { |k, _| k.start_with?("COG_OPT_") }
                    .transform_keys { |k| k.sub("COG_OPT_", "").downcase }
