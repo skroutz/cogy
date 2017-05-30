@@ -1,6 +1,7 @@
 language: ruby
 rvm:
   - 2.3
+  - 2.2.2
   - 2.2
   - 2.1
 branches:
@@ -8,3 +9,15 @@ branches:
   - master
 gemfile:
   - gemfiles/4.2.gemfile
+  - gemfiles/5.0.gemfile
+  - gemfiles/5.1.gemfile
+matrix:
+  exclude:
+    - gemfile: gemfiles/5.0.gemfile
+      rvm: 2.1
+    - gemfile: gemfiles/5.1.gemfile
+      rvm: 2.1
+    - gemfile: gemfiles/5.0.gemfile
+      rvm: 2.2
+    - gemfile: gemfiles/5.1.gemfile
+      rvm: 2.2
