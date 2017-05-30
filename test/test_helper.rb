@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../../test/dummy/config/environment.rb", __FILE__)
 require "rails/test_help"
 require "minitest/spec"
+require "byebug"
 
 require "minitest/reporters"
 # Standard minitest reporter but with red/green colors
