@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path("../../test/dummy/config/environment.rb", __FILE__)
+require "#{ENV['COGY_DUMMY_APP_PATH']}/config/environment.rb"
 require "rails/test_help"
 require "minitest/spec"
 require "byebug"
