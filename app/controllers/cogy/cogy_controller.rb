@@ -26,9 +26,9 @@ module Cogy
                      "JSON\n" \
                      "#{result.to_json}"
           end
-          render text: result
+          render plain: result
         else
-          render status: 404, text: "The command '#{cmd}' does not exist."
+          render status: 404, plain: "The command '#{cmd}' does not exist."
         end
       rescue => e
         @user = user
@@ -47,7 +47,7 @@ module Cogy
     # Returns the bundle config in YAML format, which is installable by Cog.
     # It is typically hit by `cogy:install` (https://github.com/skroutz/cogy-bundle).
     def inventory
-      render text: Cogy.bundle_config.to_yaml, content_type: "application/x-yaml"
+      render body: Cogy.bundle_config.to_yaml, content_type: "application/x-yaml"
     end
   end
 end
