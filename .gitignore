@@ -11,3 +11,4 @@ test/dummy/tmp/
 test/dummy/.sass-cache
 .byebug_history
 Gemfile.lock
+gemfiles/*.gemfile.lock

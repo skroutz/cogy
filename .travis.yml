@@ -6,3 +6,5 @@ rvm:
 branches:
   only:
   - master
+gemfile:
+  - gemfiles/4.2.gemfile
