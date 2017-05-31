@@ -2,6 +2,14 @@
 
 ## master (unreleased)
 
+## 0.6.0 (2017-05-31)
+
+This is a backwards-compatible release.
+
+### Added
+
+- Support for Rails 5. ([#63](https://github.com/skroutz/cogy/pull/63))
+
 ## 0.5.2 (2017-01-25)
 
 This is a bug fix release due to Cog 1.0.0.beta2. It is backwards-compatible

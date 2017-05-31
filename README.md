@@ -75,7 +75,7 @@ Take a look at the relevant [diagrams](diagrams/) for a detailed illustration.
 * Cog 1.0.0.beta2 or later
 * [cogy bundle](https://github.com/skroutz/cogy-bundle) 0.4.0 or later
 * Ruby 2.1 or later
-* Rails 4.2 (support for Rails 5 is on the way)
+* Rails 4.2 or later
 
 ## Status
 
@@ -457,7 +457,7 @@ invoked.
 
 ## Development
 
-Running the tests and RuboCop:
+Running the tests and RuboCop for the latest Rails version:
 
 ```shell
 $ rake
@@ -479,6 +479,19 @@ Generating documentation:
 
 ```shell
 $ rake yard
+```
+
+Running the tests for all the supported Rails versions:
+
+
+```shell
+$ appraisal rake
+```
+
+Or for a specific version:
+
+```shell
+$ appraisal 4.2 rake test
 ```
 
 ## Authors
