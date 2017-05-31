@@ -1,7 +1,10 @@
-.bundle/
-.yardoc/
 *.gem
+.bundle/
+.byebug_history
+.yardoc/
 doc/
+Gemfile.lock
+gemfiles/*.gemfile.lock
 log/*.log
 pkg/
 test/dummies/**/db/*.sqlite3
@@ -9,6 +12,3 @@ test/dummies/**/db/*.sqlite3-journal
 test/dummies/**/log/*.log
 test/dummies/**/tmp/
 test/dummies/**/.sass-cache
-.byebug_history
-Gemfile.lock
-gemfiles/*.gemfile.lock
