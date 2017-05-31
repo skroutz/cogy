@@ -2,7 +2,13 @@ require "active_support/test_case"
 
 class ActiveSupport::TestCase
   def cmd(name, env={}, as="someone")
-    post "/cogy/cmd/#{name}", env.merge("COG_CHAT_HANDLE" => as)
+    params = if Rails::VERSION::MAJOR >= 5
+               { params: env.merge("COG_CHAT_HANDLE" => as) }
+             else
+               env.merge("COG_CHAT_HANDLE" => as)
+             end
+
+    post "/cogy/cmd/#{name}", params
   end
 
   def fetch_inventory

@@ -11,7 +11,7 @@ module Cogy
     # Executes the requested {Command} and returns the result.
     def command
       cmd = params[:cmd]
-      args = params.select { |k, _| k.start_with?("COG_ARGV_") }
+      args = params.select { |k, _| k.start_with?("COG_ARGV_") }.to_unsafe_h
                    .sort_by { |k, _| k.match(/\d+\z/)[0] }.to_h.values
       opts = params.select { |k, _| k.start_with?("COG_OPT_") }
                    .transform_keys { |k| k.sub("COG_OPT_", "").downcase }
@@ -26,9 +26,9 @@ module Cogy
                      "JSON\n" \
                      "#{result.to_json}"
           end
-          render text: result
+          render plain: result
         else
-          render status: 404, text: "The command '#{cmd}' does not exist."
+          render status: 404, plain: "The command '#{cmd}' does not exist."
         end
       rescue => e
         @user = user
@@ -47,7 +47,7 @@ module Cogy
     # Returns the bundle config in YAML format, which is installable by Cog.
     # It is typically hit by `cogy:install` (https://github.com/skroutz/cogy-bundle).
     def inventory
-      render text: Cogy.bundle_config.to_yaml, content_type: "application/x-yaml"
+      render body: Cogy.bundle_config.to_yaml, content_type: "application/x-yaml"
     end
   end
 end

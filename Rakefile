@@ -4,7 +4,11 @@ rescue LoadError
   puts "You must `gem install bundler` and `bundle install` to run rake tasks"
 end
 
-APP_RAKEFILE = File.expand_path("../test/dummy/Rakefile", __FILE__)
+gemfile_name = File.basename(ENV["BUNDLE_GEMFILE"], ".gemfile")
+rails_version = gemfile_name == "Gemfile" ? "5.1" : gemfile_name
+ENV["COGY_DUMMY_APP_PATH"] = File.expand_path("../test/dummies/#{rails_version}", __FILE__)
+
+APP_RAKEFILE = "#{ENV['COGY_DUMMY_APP_PATH']}/Rakefile".freeze
 load "rails/tasks/engine.rake"
 load "rails/tasks/statistics.rake"
 
