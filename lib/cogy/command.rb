@@ -45,7 +45,7 @@ module Cogy
     # @param opts      [Hash{Symbol=>Hash}] the options accepted by the command
     # @param desc      [String] the description
     # @param long_desc [String] the long description
-    # @param examples  [String] usage examples of the command
+    # @param examples  [String, Array] usage examples of the command
     # @param rules     [Array] the command rules
     # @param template  [String] the name of the template to use
     #
@@ -60,7 +60,7 @@ module Cogy
       @opts = opts.with_indifferent_access
       @desc = desc
       @long_desc = long_desc
-      @examples = examples
+      @examples = examples.is_a?(Array) ? examples.join("\n\n") : examples
       @rules = rules || ["allow"]
       @template = template
 

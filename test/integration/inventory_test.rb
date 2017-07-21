@@ -62,5 +62,9 @@ TEMPLATE
 
       assert_equal expected, fetch_inventory["templates"]["pretty-command"]["body"]
     end
+
+    def test_command_example_array
+      assert_equal "foo\n\nbar", fetch_inventory["commands"]["examples_as_array"]["examples"]
+    end
   end
 end

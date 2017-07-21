@@ -31,3 +31,6 @@ on "test_opts_downcased",
    desc: "" do
   opts[:a]
 end
+
+on "examples_as_array", desc: "", examples: ["foo", "bar"] do
+end
