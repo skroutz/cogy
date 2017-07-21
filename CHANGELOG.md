@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### Added
+
+- Usage examples can now be passed as arrays too. ([#62](https://github.com/skroutz/cogy/issues/62))
+
 ## 0.6.0 (2017-05-31)
 
 This is a backwards-compatible release.
