@@ -156,7 +156,7 @@ on "calc",
 end
 ```
 
-For more examples see the [test commands](https://github.com/skroutz/cogy/tree/master/test/dummy/cogy).
+For more examples see the [test commands](https://github.com/skroutz/cogy/tree/master/test/dummies/cogy).
 
 ### Returning JSON to Cog
 
