@@ -13,7 +13,7 @@ class ActiveSupport::TestCase
 
   def fetch_inventory
     get "/cogy/inventory"
-    YAML.load(response.body)
+    YAML.safe_load(response.body)
   end
 
   def with_config(opts={})

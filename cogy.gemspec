@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 4.2", "< 6"
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "pry-byebug"
-  s.add_development_dependency "minitest-reporters"
-  s.add_development_dependency "yard"
-  s.add_development_dependency "rubocop", "~> 0.55.0"
   s.add_development_dependency "appraisal"
+  s.add_development_dependency "minitest-reporters"
+  s.add_development_dependency "pry-byebug"
+  s.add_development_dependency "rubocop", "~> 0.55.0"
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "yard"
 end

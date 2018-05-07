@@ -8,17 +8,32 @@ AllCops:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Style/MultilineAssignmentLayout:
+Layout/MultilineAssignmentLayout:
   Enabled: true
   EnforcedStyle: same_line
 
-Style/LeadingCommentSpace:
+Layout/LeadingCommentSpace:
   Exclude:
     - 'lib/generators/cogy/templates/**/**'
 
 #
 # Disabled Cops
 #
+Style/RescueStandardError:
+  Enabled: false
+
+Layout/IndentHeredoc:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
@@ -28,7 +43,7 @@ Style/NegatedIf:
 Style/ClassVars:
   Enabled: false
 
-Style/SpaceAroundEqualsInParameterDefault:
+Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 
 Style/IfUnlessModifier:

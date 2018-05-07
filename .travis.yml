@@ -1,23 +1,26 @@
 language: ruby
 rvm:
-  - 2.3
-  - 2.2.2
-  - 2.2
-  - 2.1
+- 2.3
+- 2.2.2
+- 2.2
+- 2.1
 branches:
   only:
   - master
 gemfile:
-  - gemfiles/4.2.gemfile
-  - gemfiles/5.0.gemfile
-  - gemfiles/5.1.gemfile
+- gemfiles/4.2.gemfile
+- gemfiles/5.0.gemfile
+- gemfiles/5.1.gemfile
 matrix:
   exclude:
-    - gemfile: gemfiles/5.0.gemfile
-      rvm: 2.1
-    - gemfile: gemfiles/5.1.gemfile
-      rvm: 2.1
-    - gemfile: gemfiles/5.0.gemfile
-      rvm: 2.2
-    - gemfile: gemfiles/5.1.gemfile
-      rvm: 2.2
+  - gemfile: gemfiles/5.0.gemfile
+    rvm: 2.1
+  - gemfile: gemfiles/5.1.gemfile
+    rvm: 2.1
+  - gemfile: gemfiles/5.0.gemfile
+    rvm: 2.2
+  - gemfile: gemfiles/5.1.gemfile
+    rvm: 2.2
+notifications:
+  slack:
+    secure: DB40QbPrFjUilesYZ25wozSIkLTk2yCJgAEEotJ2H4F5SIUPZyFOn+xOw8B31HLb4GWjggdSmBlUsd2gSALN0GwdxvKwYfnEDAZuokA3DmxXbmxp69KwLbtoOhUGILiexnzpxxHVLeJzbR+LCt+xosyS8EST8K6JFp7qQSThBtiTv+zKXS75ronhgl0zrswq0j4O7Bw2jea39h8GlsfdLq1UciR4xIZGgeSnVLLZqoCXEpWYBmllcumRpLDtCjvTXPOD/Kpxvurw6xeyWWH83yQ23OuJ6xiaP5txWyD3A93WZRmsbWm72vL7bxY5FHVqmpeu3iOYMMwblwqmzs5I7yu3H6MI+DDhU4Zgx9Er8+56SmpozPcRnL6A3herPHTSX1RX4SIfDn8e7Jo3IZBvmmDAi1KbGwqJxnAjI0jeFF6PGB3vuw4NLJP2F5iQYUN3kkX0vx2nMpOoJSj6e7vBlO82Rajoh/AzD7oe0yTNge04JkPz/8xf/+u4QeSMreQHvZmuxc7GQokiKlLmPd8W3kKPjdobMmwClMqigvi9v6JeZAf+UHclbo/aMrf4ZrzA7oKMkzkkLZ1Y4/rGi1ao7c3UcU/gtABzgq85n79Ckq3MQVD0eWtkrcZk67j7aMYHrFQswrbahT+J47LtmGRFxo5z/tN+yV70ujLPAnqz4d8=
