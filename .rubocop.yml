@@ -72,3 +72,6 @@ Metrics/CyclomaticComplexity:
 
 Style/Next:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
