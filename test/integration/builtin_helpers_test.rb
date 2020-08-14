@@ -4,8 +4,6 @@ module Cogy
   class BuiltinHelpersTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    setup { @routes = Engine.routes }
-
     def test_args_helper_overrides_predefined_helpers
       cmd :args_overrides, COG_ARGV_1: "hu", COG_ARGV_0: "haha"
       assert_equal "hahahu", response.body

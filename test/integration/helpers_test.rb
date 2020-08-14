@@ -4,8 +4,6 @@ module Cogy
   class HelpersTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    setup { @routes = Engine.routes }
-
     def test_custom_helpers_can_access_default_helpers
       cmd :foohelper, cog_foo: "bar"
       assert_equal "bar", response.body

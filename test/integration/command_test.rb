@@ -4,8 +4,6 @@ module Cogy
   class CommandTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    setup { @routes = Engine.routes }
-
     def test_error_response_code
       cmd :raiser
       assert_equal 500, response.status

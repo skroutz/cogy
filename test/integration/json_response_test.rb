@@ -4,8 +4,6 @@ module Cogy
   class JsonResponseTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    setup { @routes = Engine.routes }
-
     def test_json_output_and_default_template
       cmd :simple_json
 

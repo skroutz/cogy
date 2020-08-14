@@ -4,8 +4,6 @@ module Cogy
   class ErrorTemplateTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    setup { @routes = Engine.routes }
-
     def test_error_tmpl_message
       cmd :raiser, {}, "george"
       assert response.body.include?("boom")

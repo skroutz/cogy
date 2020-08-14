@@ -5,8 +5,6 @@ module Cogy
   class InventoryTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    setup { @routes = Engine.routes }
-
     def test_valid_yaml
       with_config(bundle: { name: "hyu", version: "5.0",
                             description: "Yet another bundle" },
