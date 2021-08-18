@@ -12,7 +12,7 @@ module Cogy
 
     def test_error_tmpl_contenttype
       cmd :raiser, {}, "george"
-      assert_equal "text/plain", response.content_type.to_s
+      assert_equal "text/plain", response.media_type.to_s
     end
   end
 end

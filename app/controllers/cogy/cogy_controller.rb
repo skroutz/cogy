@@ -36,7 +36,7 @@ module Cogy
         @exception = e
         respond_to do |format|
           format.any do
-            render "/cogy/error.text.erb", content_type: "text/plain", status: 500
+            render "/cogy/error", formats: :text, content_type: "text/plain", status: 500
           end
         end
       end

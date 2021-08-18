@@ -46,7 +46,7 @@ module Cogy
 
     def test_content_type
       get "/cogy/inventory"
-      assert_equal "application/x-yaml", response.content_type
+      assert_equal "application/x-yaml", response.media_type
     end
 
     def test_template
