@@ -50,6 +50,12 @@ module Cogy
   @@cogy_endpoint = nil
   mattr_accessor :cogy_endpoint
 
+  @@readonly_by_default = false
+  mattr_accessor :readonly_by_default
+
+  @@readonly_role = :reading
+  mattr_accessor :readonly_role
+
   # Initializes a new {Command} and registers it. All the options passed are
   # used when generating the bundle config in {Cogy.bundle_config}.
   #

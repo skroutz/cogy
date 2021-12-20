@@ -31,6 +31,9 @@ module Cogy
     # @return [String]
     attr_reader :template
 
+    # @return [Boolean]
+    attr_reader :readonly
+
     # This is typically used via {Cogy.on} which also registers the newly
     # created {Command}.
     #
@@ -48,12 +51,14 @@ module Cogy
     # @param examples  [String, Array] usage examples of the command
     # @param rules     [Array] the command rules
     # @param template  [String] the name of the template to use
+    # @param readonly  [Boolean] whether the command should use the readonly
+    #                            active record connection or not
     #
     # @raise [ArgumentError] if {#opts} are invalid
     #
     # @see Cogy.on
     def initialize(name, handler, args: [], opts: {}, desc:, long_desc: nil,
-                   examples: nil, rules: nil, template: nil)
+                   examples: nil, rules: nil, template: nil, readonly: nil)
       @name = name.to_s
       @handler = handler
       @args = [args].flatten.map!(&:to_s)
@@ -63,6 +68,7 @@ module Cogy
       @examples = examples.is_a?(Array) ? examples.join("\n\n") : examples
       @rules = rules || ["allow"]
       @template = template
+      @readonly = readonly.nil? ? Cogy.readonly_by_default : readonly
 
       validate_opts
     end

@@ -20,7 +20,16 @@ module Cogy
 
       begin
         if (command = Cogy.commands[cmd])
-          result = Context.new(command, args, opts, user, cog_env).invoke
+          context = Context.new(command, args, opts, user, cog_env)
+
+          result = if command.readonly
+                     ActiveRecord::Base.connected_to(role: Cogy.readonly_role) do
+                       context.invoke
+                     end
+                   else
+                     context.invoke
+                   end
+
           if result.is_a?(Hash)
             result = "COG_TEMPLATE: #{command.template || command.name}\n" \
                      "JSON\n" \
@@ -30,6 +39,11 @@ module Cogy
         else
           render status: 404, plain: "The command '#{cmd}' does not exist."
         end
+      rescue ActiveRecord::ReadOnlyError
+        render status: 500, plain: "ActiveRecord::ReadOnlyError: " \
+                                   "Write SQL query attempted while in readonly mode.\n" \
+                                   "Please define the '#{cmd}' command using the " \
+                                   "`readonly: false` option.\n"
       rescue => e
         @user = user
         @cmd = cmd
