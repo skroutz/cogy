@@ -4,6 +4,7 @@ namespace :cogy do
     require "net/http"
     require "timeout"
     require "json"
+    require "uri"
 
     trigger_url = fetch(:cogy_release_trigger_url)
     cogy_endpoint = fetch(:cogy_endpoint)
@@ -13,7 +14,7 @@ namespace :cogy do
       raise ":cogy_endpoint must be set" if cogy_endpoint.nil?
 
       Timeout.timeout(fetch(:cogy_trigger_timeout) || 7) do
-        url = URI(trigger_url)
+        url = ::URI.parse(trigger_url)
         res = Net::HTTP.post_form(url, url: cogy_endpoint)
 
         if !res.is_a?(Net::HTTPSuccess)
