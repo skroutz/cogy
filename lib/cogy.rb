@@ -95,7 +95,7 @@ module Cogy
   # @note to return early inside a command block, `next` should be used instead
   #   of `return` due to the way Proc objects work in Ruby.
   def self.on(cmd_name, opts = {}, &handler)
-    cmd = Command.new(cmd_name, handler, opts)
+    cmd = Command.new(cmd_name, handler, **opts)
     cmd.register!
   end
 
